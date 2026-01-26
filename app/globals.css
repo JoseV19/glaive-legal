@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 168, 180, 194;
+  /* Color jack-silver */
+}
+
+body {
+  color: #A8B4C2;
+  /* jack-silver */
+  background: #0B0A12;
+  /* jack-base */
+  font-family: 'Times New Roman', serif;
+}
+
+/* Títulos importantes en Dorado */
+h1,
+h2,
+h3 {
+  color: #Cfb568;
+  /* jack-gold */
+}
+
+/* Scrollbar estilo Jack (Elegante) */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0A12;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3E2034;
+  /* jack-plum */
+  border: 1px solid #7A1F2E;
+  /* jack-crimson */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7A1F2E;
+}
+
+/* Efecto para simular papel protocolo en la app */
+.protocol-paper {
+  background-color: #E8E6E1;
+  color: #000;
+  background-image: repeating-linear-gradient(transparent,
+      transparent 0.96cm,
+      /* Ajuste fino */
+      #00bfff15 0.96cm,
+      #00bfff15 0.98cm);
+}
+
+/* ... todo lo anterior ... */
+
+/* ESTILOS DE IMPRESIÓN (Oculta la interfaz oscura, deja solo el papel) */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #protocol-sheet,
+  #protocol-sheet * {
+    visibility: visible;
+  }
+
+  #protocol-sheet {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    background: white !important;
+    /* El papel debe ser blanco al imprimir */
+    color: black !important;
+    box-shadow: none !important;
+    width: 21.59cm;
+    /* Carta/Oficio según config */
+    height: 100%;
+  }
+
+  /* Ocultamos líneas guía y numeración si el papel físico ya las trae */
+  .no-print {
+    display: none !important;
+  }
+}
