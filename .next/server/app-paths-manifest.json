@@ -1,8 +1,4 @@
 {
-  "/codex/page": "app/codex/page.js",
-  "/page": "app/page.js",
-  "/investigacion/page": "app/investigacion/page.js",
-  "/login/page": "app/login/page.js",
   "/protocolo/page": "app/protocolo/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js"
+  "/page": "app/page.js"
 }
