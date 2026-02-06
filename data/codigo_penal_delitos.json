@@ -1,0 +1,143 @@
+{
+  "titulo": "Código Penal de Guatemala",
+  "categoria": "Penal",
+  "abreviatura": "CP",
+  "año": 1973,
+  "articulos": [
+    {
+      "numero": "1",
+      "titulo": "De la legalidad",
+      "contenido": "Nadie podrá ser penado por hechos que no estén expresamente calificados, como delitos o faltas, por ley anterior a su perpetración; ni se impondrán otras penas que no sean las previamente establecidas en la ley."
+    },
+    {
+      "numero": "2",
+      "titulo": "Extractividad de la ley penal",
+      "contenido": "Si la ley vigente al tiempo en que fue cometido el delito fuere distinta de cualquier ley posterior, se aplicará aquélla cuyas disposiciones sean favorables al reo aún cuando haya recaído sentencia firme y aquél se halle cumpliendo su condena."
+    },
+    {
+      "numero": "3",
+      "titulo": "De la exclusión de analogía",
+      "contenido": "Para la aplicación de la ley penal, no se utilizará la analogía. Por analogía, los jueces no podrán crear figuras delictivas ni aplicar sanciones."
+    },
+    {
+      "numero": "4",
+      "titulo": "De la territorialidad de la ley penal",
+      "contenido": "Salvo lo establecido en tratados internacionales, este Código se aplicará a toda persona que cometa delito o falta en el territorio de la República o en lugares o vehículos sometidos a su jurisdicción."
+    },
+    {
+      "numero": "5",
+      "titulo": "Extraterritorialidad de la ley penal",
+      "contenido": "Este Código también se aplicará: 1) Por delito cometido en el extranjero por funcionario al servicio de la República, cuando no hubiere sido juzgado en el país en que se perpetró el hecho; 2) Por delito cometido en nave, aeronave o cualquier otro medio de transporte guatemalteco, cuando no hubiere sido juzgado en el país en que se cometió el delito; 3) Por delito cometido por guatemalteco en el extranjero, cuando se hubiere denegado su extradición; 4) Por delito que, por tratado o convención, deba sancionarse en Guatemala, aun cuando no hubiese sido cometido en su territorio."
+    },
+    {
+      "numero": "6",
+      "titulo": "De la extradición",
+      "contenido": "La extradición sólo podrá intentarse u otorgarse por delitos comunes. Guatemala no concederá la extradición de sus nacionales, ni la de extranjeros por delitos políticos, pero está obligada a juzgarlos."
+    },
+    {
+      "numero": "7",
+      "titulo": "Exclusión de la entrega del reo",
+      "contenido": "No se concederá la extradición cuando se hubiere extinguido la responsabilidad penal conforme a las leyes del Estado requerido, o cuando la persona reclamada deba ser juzgada por tribunal o comisión especial del Estado requirente."
+    },
+    {
+      "numero": "8",
+      "titulo": "Delito y falta",
+      "contenido": "Las infracciones que la ley califica como delitos o como faltas constituyen los hechos punibles a que se refiere este Código."
+    },
+    {
+      "numero": "9",
+      "titulo": "Delitos por comisión y por omisión",
+      "contenido": "Los hechos previstos en las figuras delictivas serán atribuidos al imputado, cuando fueren consecuencia de una acción u omisión normalmente idónea para producirlos, conforme a la naturaleza del respectivo delito y a las circunstancias concretas del caso, o cuando la ley expresamente lo establece como delito de omisión."
+    },
+    {
+      "numero": "10",
+      "titulo": "Relación de causalidad",
+      "contenido": "Los hechos previstos en las figuras delictivas serán atribuidos al imputado cuando fueren consecuencia de una acción u omisión normalmente idónea para producirlos, conforme a la naturaleza del respectivo delito y a las circunstancias concretas del caso o cuando la ley expresamente los establece como delito de pura omisión."
+    },
+    {
+      "numero": "11",
+      "titulo": "Delito doloso",
+      "contenido": "El delito es doloso cuando el resultado ha sido previsto o cuando, sin perseguir ese resultado, el autor se lo representa como posible y ejecuta el acto. El dolo puede ser directo o eventual."
+    },
+    {
+      "numero": "12",
+      "titulo": "Delito culposo",
+      "contenido": "El delito es culposo cuando con ocasión de acciones u omisiones lícitas, se causa un mal por imprudencia, negligencia o impericia. Los hechos culposos son punibles en los casos expresamente determinados por la ley."
+    },
+    {
+      "numero": "13",
+      "titulo": "La tentativa",
+      "contenido": "Hay tentativa cuando con el fin de cometer un delito, se comienza su ejecución por actos exteriores, idóneos y no se consuma por causas independientes de la voluntad del agente."
+    },
+    {
+      "numero": "14",
+      "titulo": "Pena de la tentativa",
+      "contenido": "La tentativa será penada con la pena del delito al cual se dirigía la conducta del agente, rebajada en una tercera parte."
+    },
+    {
+      "numero": "15",
+      "titulo": "Tentativa imposible",
+      "contenido": "Si la tentativa se efectuare con medios normalmente inadecuados o sobre un objeto de tal naturaleza que la consumación del hecho resulte absolutamente imposible, el autor solamente quedará sujeto a medidas de seguridad."
+    },
+    {
+      "numero": "16",
+      "titulo": "Desistimiento",
+      "contenido": "Cuando comenzada la ejecución de un delito, el autor desiste voluntariamente de realizar todos los actos necesarios para consumarlo, sólo se le aplicará sanción por los actos ejecutados, si éstos constituyen delito por sí mismos."
+    },
+    {
+      "numero": "17",
+      "titulo": "Conspiración y proposición",
+      "contenido": "Hay conspiración, cuando dos o más personas se conciertan para cometer un delito y resuelven ejecutarlo. Hay proposición, cuando el que ha resuelto cometer un delito, invita a otra u otras personas a ejecutarlo. La conspiración, la proposición y la provocación para cometer un delito, sólo son punibles en los casos en que la ley lo determine expresamente."
+    },
+    {
+      "numero": "18",
+      "titulo": "Provocación",
+      "contenido": "Hay provocación, cuando se incita públicamente a cometer un delito, ya sea verbalmente, por escrito o por cualquier otro medio de difusión."
+    },
+    {
+      "numero": "19",
+      "titulo": "Causas de inimputabilidad",
+      "contenido": "No es imputable: 1) El menor de edad; 2) Quien en el momento de la acción u omisión, no posea, a causa de enfermedad mental, de desarrollo psíquico incompleto o retardado o de trastorno mental transitorio, la capacidad de comprender el carácter ilícito del hecho o de determinarse de acuerdo con esa comprensión, salvo que el trastorno mental transitorio haya sido buscado de propósito por el agente."
+    },
+    {
+      "numero": "20",
+      "titulo": "Mayoría de edad penal",
+      "contenido": "La mayoría de edad penal es de dieciocho años. Sin embargo, los tribunales podrán, en sentencia razonada, declarar la mayoría de edad penal de un menor comprendido entre los quince y los dieciocho años de edad, tomando en cuenta las circunstancias del hecho y la personalidad del sujeto."
+    },
+    {
+      "numero": "21",
+      "titulo": "Causa de justificación: legítima defensa",
+      "contenido": "No es punible quien obra en defensa de su persona, de sus derechos o de un tercero, siempre que concurran las circunstancias siguientes: a) Agresión ilegítima; b) Necesidad racional del medio empleado para impedirla o repelerla; c) Falta de provocación suficiente por parte del que se defiende."
+    },
+    {
+      "numero": "22",
+      "titulo": "Legítima defensa presunta",
+      "contenido": "Se presume la legítima defensa de quien rechaza al que pretenda entrar o haya entrado en morada ajena o en sus dependencias, si su actitud denota la inminencia de un peligro para la vida, bienes o derechos de los moradores."
+    },
+    {
+      "numero": "23",
+      "titulo": "Estado de necesidad",
+      "contenido": "No es punible quien ante un peligro actual e inminente, para evitar un mal cierto, no producido voluntariamente, lesiona un bien jurídico de igual o menor entidad que el que pretende salvar, siempre que la situación de necesidad no haya sido provocada intencionalmente y que no exista otro medio menos perjudicial para evitarlo."
+    },
+    {
+      "numero": "24",
+      "titulo": "Causas de justificación: legítimo ejercicio de un derecho",
+      "contenido": "No es punible quien actúa en el legítimo ejercicio de un derecho."
+    },
+    {
+      "numero": "25",
+      "titulo": "Obediencia debida",
+      "contenido": "No es punible quien ejecuta un acto ordenado por la ley, en cumplimiento de un deber o en el ejercicio legítimo de autoridad o de un cargo público. La obediencia debida no exime de responsabilidad cuando la orden sea manifiestamente contraria a la ley."
+    },
+    {
+      "numero": "123",
+      "titulo": "Homicidio",
+      "contenido": "Comete homicidio quien diere muerte a alguna persona. Al homicida se le impondrá prisión de 15 a 40 años."
+    },
+    {
+      "numero": "261",
+      "titulo": "Estafa",
+      "contenido": "Comete estafa quien, induciendo a error a otro, mediante ardid o engaño, lo defraudare en su patrimonio en perjuicio propio o ajeno. Al responsable de estafa se le impondrá prisión de seis meses a cuatro años y multa de doscientos a diez mil quetzales. Si la estafa se cometiere en forma continuada o el daño patrimonial fuere de considerable cuantía, a juicio del tribunal, la pena se aumentará hasta en una tercera parte. La estafa calificada, cuando se cometa aprovechándose de la inexperiencia, necesidad, ligereza o ignorancia del agraviado, será sancionada con el doble de la pena señalada."
+    }
+  ]
+}

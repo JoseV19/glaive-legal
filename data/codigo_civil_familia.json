@@ -1,0 +1,163 @@
+{
+  "titulo": "Código Civil (Libro I: De las Personas y la Familia)",
+  "categoria": "Civil",
+  "abreviatura": "CC-FAM",
+  "año": 1963,
+  "articulos": [
+    {
+      "numero": "78",
+      "titulo": "Concepto de Matrimonio",
+      "contenido": "El matrimonio es una institución social por la que un hombre y una mujer se unen legalmente, con ánimo de permanencia y con el fin de vivir juntos, procrear, alimentar y educar a sus hijos y auxiliarse entre sí."
+    },
+    {
+      "numero": "79",
+      "titulo": "Edad para contraer matrimonio",
+      "contenido": "La mayoría de edad determina la libre aptitud para contraer matrimonio. Sin embargo, podrán contraer matrimonio el varón mayor de dieciséis años y la mujer mayor de catorce, siempre que medie la autorización que determina este Código."
+    },
+    {
+      "numero": "80",
+      "titulo": "Autorización para menores",
+      "contenido": "Los menores de edad necesitan para contraer matrimonio la autorización de las personas siguientes, en el orden que se indican: a) Del padre; b) De la madre; c) Del tutor."
+    },
+    {
+      "numero": "81",
+      "titulo": "Autorización judicial supletoria",
+      "contenido": "A falta de padres y de tutor, o cuando éstos nieguen sin causa razonable su consentimiento, podrá suplirlo el juez de primera instancia del domicilio del menor, siempre que éste pruebe su solvencia y su aptitud física y mental para el matrimonio."
+    },
+    {
+      "numero": "82",
+      "titulo": "Aptitud para el matrimonio",
+      "contenido": "No podrán contraer matrimonio sino hasta después de la disolución del anterior, las personas que se hallen ligadas por matrimonio subsistente."
+    },
+    {
+      "numero": "83",
+      "titulo": "Impedimentos absolutos",
+      "contenido": "Son impedimentos absolutos para contraer matrimonio: 1) Los parientes consanguíneos en línea recta y en la colateral, los hermanos y medio hermanos; 2) Los ascendientes y descendientes que hayan estado ligados por afinidad; y 3) Las personas a quienes la ley les prohíba expresamente contraer matrimonio."
+    },
+    {
+      "numero": "84",
+      "titulo": "Insubsistencia del matrimonio",
+      "contenido": "El matrimonio es insubsistente y puede ser anulado si se contraviniere alguno de los impedimentos absolutos establecidos en el artículo anterior. La declaración de insubsistencia puede pedirla cualquiera de los cónyuges, los ascendientes, el Ministerio Público y cualquier persona que tenga interés."
+    },
+    {
+      "numero": "85",
+      "titulo": "Impedimentos relativos: tutores",
+      "contenido": "El tutor no podrá contraer matrimonio con la persona que ha estado o esté bajo su tutela, sino después de que hayan sido aprobadas las cuentas de su administración."
+    },
+    {
+      "numero": "86",
+      "titulo": "Impedimentos relativos: raptor",
+      "contenido": "No podrá contraer matrimonio el raptor con la raptada mientras ésta se halle en su poder."
+    },
+    {
+      "numero": "87",
+      "titulo": "Anulabilidad del matrimonio",
+      "contenido": "El matrimonio es anulable: 1) Cuando uno o ambos cónyuges han consentido por error, dolo o coacción; 2) Del que adolezca de impotencia absoluta o relativa para la procreación, siempre que por su naturaleza sea perpetua, incurable y anterior al matrimonio; 3) De cualquier persona que padezca incapacidad mental al celebrarlo."
+    },
+    {
+      "numero": "88",
+      "titulo": "Plazo para pedir la anulabilidad",
+      "contenido": "La acción de anulabilidad por error, dolo o coacción debe intentarse dentro del plazo de sesenta días, contados desde que se conoció el error o el dolo, o desde que cesó la coacción."
+    },
+    {
+      "numero": "89",
+      "titulo": "Celebración del matrimonio",
+      "contenido": "El matrimonio debe autorizarse por el alcalde municipal o el concejal que haga sus veces, o por un notario hábil legalmente para el ejercicio de su profesión. También podrá autorizarlo el ministro de cualquier culto que tenga esa facultad, otorgada por la autoridad administrativa que corresponda."
+    },
+    {
+      "numero": "90",
+      "titulo": "Formalidades previas",
+      "contenido": "Los contrayentes deben presentar al funcionario que ha de autorizar el matrimonio, los documentos siguientes: a) Las certificaciones de las partidas de nacimiento de los contrayentes; b) La constancia de sanidad de ambos contrayentes expedida por el Centro de Salud; c) La constancia del consentimiento de las personas a que se refiere el artículo 80, cuando alguno de los contrayentes sea menor de edad; d) Declaración jurada de no existir impedimento legal para el matrimonio; y e) En el caso de segundas nupcias, la certificación de la partida de defunción del cónyuge fallecido o la del acta de divorcio."
+    },
+    {
+      "numero": "91",
+      "titulo": "Solemnidad del acto",
+      "contenido": "El funcionario que autorice el matrimonio, en acto solemne, recibirá de cada uno de los contrayentes, en presencia de los testigos, su consentimiento expreso de tomarse respectivamente como marido y mujer, y en seguida los declarará unidos en matrimonio."
+    },
+    {
+      "numero": "92",
+      "titulo": "Acta de matrimonio",
+      "contenido": "El acta de matrimonio se asentará en el libro respectivo del Registro Civil, la cual deberá contener: a) Nombres, apellidos, edad, estado civil, profesión u oficio, nacionalidad, domicilio y lugar de nacimiento de los contrayentes; b) Nombres de los padres de los contrayentes; c) Declaración de los contrayentes de su libre consentimiento; d) El régimen económico del matrimonio que hubieren adoptado los contrayentes; e) Los nombres, apellidos y domicilios de los testigos; f) Lugar, día y hora del acto; y g) Firma de las partes, los testigos y el funcionario autorizante."
+    },
+    {
+      "numero": "93",
+      "titulo": "Matrimonio en artículo de muerte",
+      "contenido": "El matrimonio podrá celebrarse sin las formalidades previas cuando alguno de los contrayentes se halle en artículo de muerte. Bastará la comparecencia del contrayente o contrayentes ante el funcionario autorizado, expresando su voluntad de contraer matrimonio. Dentro de los ocho días siguientes a su celebración, el funcionario que lo autorizó deberá inscribirlo en el Registro Civil."
+    },
+    {
+      "numero": "94",
+      "titulo": "Matrimonio por poder",
+      "contenido": "El matrimonio podrá celebrarse por poder, otorgado en escritura pública o mediante acta levantada ante el alcalde o juez local, debiendo expresarse en el poder el nombre de la persona con quien el mandante ha de celebrar el matrimonio. El poder especial para contraer matrimonio caduca a los seis meses de otorgado."
+    },
+    {
+      "numero": "95",
+      "titulo": "Inscripción obligatoria",
+      "contenido": "El matrimonio debe inscribirse en el Registro Civil de la jurisdicción en que se celebró. El funcionario que lo autorice está obligado a enviarlo al Registro Civil dentro de los quince días siguientes a su celebración."
+    },
+    {
+      "numero": "96",
+      "titulo": "Prueba del matrimonio",
+      "contenido": "El matrimonio se prueba con la certificación de la partida de matrimonio. La posesión notoria del estado de matrimonio suple al acta de matrimonio, cuando existió y se extravió o destruyó."
+    },
+    {
+      "numero": "97",
+      "titulo": "Deberes y derechos de los cónyuges",
+      "contenido": "Los cónyuges están obligados a vivir juntos, a guardarse fidelidad y a socorrerse mutuamente. Ambos cónyuges tienen la obligación de atender y cuidar a sus hijos, durante la minoría de edad de éstos, proporcionándoles alimentación, educación y una formación integral."
+    },
+    {
+      "numero": "98",
+      "titulo": "Representación conyugal",
+      "contenido": "La representación conyugal corresponde en igual forma a ambos cónyuges, quienes tendrán autoridad y consideraciones iguales en el hogar; de común acuerdo fijarán el lugar de su residencia y arreglarán todo lo relativo a la educación y establecimiento de los hijos y a la economía familiar."
+    },
+    {
+      "numero": "99",
+      "titulo": "Obligación de contribuir al sostenimiento del hogar",
+      "contenido": "Ambos cónyuges tienen la obligación de contribuir a los gastos del hogar en proporción a sus ingresos y posibilidades económicas. El trabajo del hogar se estimará como contribución económica de la persona que lo realice."
+    },
+    {
+      "numero": "100",
+      "titulo": "Derecho de la mujer sobre el producto de su trabajo",
+      "contenido": "La mujer tendrá siempre derecho preferente sobre el sueldo, salario o ingresos del marido, por las cantidades que correspondan para alimentos de ella y de sus hijos menores."
+    },
+    {
+      "numero": "101",
+      "titulo": "Capacidad civil de la mujer casada",
+      "contenido": "La mujer casada tiene plena capacidad civil para ejercer por sí misma derechos y contraer obligaciones."
+    },
+    {
+      "numero": "102",
+      "titulo": "Capitulaciones matrimoniales",
+      "contenido": "Las capitulaciones matrimoniales son los pactos que otorgan los contrayentes para establecer y regular el régimen económico del matrimonio. Podrán celebrarse antes o durante el matrimonio."
+    },
+    {
+      "numero": "103",
+      "titulo": "Regímenes económicos del matrimonio",
+      "contenido": "Los regímenes económicos del matrimonio son: 1) La comunidad absoluta; 2) La separación absoluta; y 3) La comunidad de gananciales. La comunidad de gananciales es el régimen económico que regirá el matrimonio cuando los contrayentes no hayan optado por otro régimen en las capitulaciones matrimoniales."
+    },
+    {
+      "numero": "104",
+      "titulo": "Comunidad absoluta",
+      "contenido": "En el régimen de comunidad absoluta, todos los bienes aportados al matrimonio por los contrayentes o adquiridos durante el mismo, pertenecen al patrimonio conyugal y se dividirán por mitad al disolverse el matrimonio."
+    },
+    {
+      "numero": "105",
+      "titulo": "Separación absoluta de bienes",
+      "contenido": "En el régimen de separación absoluta, cada cónyuge conserva la propiedad y administración de los bienes que le pertenecen y será dueño exclusivo de los frutos, productos y accesiones de los mismos."
+    },
+    {
+      "numero": "106",
+      "titulo": "Comunidad de gananciales",
+      "contenido": "En el régimen de comunidad de gananciales, el marido y la mujer conservan la propiedad de los bienes que tenían al contraer matrimonio y de los que adquieran durante él a título gratuito; pero harán suyos por mitad, al disolverse el patrimonio conyugal, los bienes adquiridos a título oneroso durante el matrimonio, los frutos de unos y otros, y de los bienes propios de cada uno de los cónyuges."
+    },
+    {
+      "numero": "107",
+      "titulo": "Bienes propios de cada cónyuge",
+      "contenido": "Son bienes propios de cada uno de los cónyuges los que adquiera por herencia, donación u otro título gratuito, los que adquiera por permuta con bienes propios y las indemnizaciones por daños causados a bienes propios."
+    },
+    {
+      "numero": "108",
+      "titulo": "Administración del patrimonio conyugal",
+      "contenido": "La administración del patrimonio conyugal corresponde a ambos cónyuges indistintamente. Para enajenar, gravar o de cualquier modo disponer de bienes comunes, es necesario el consentimiento de ambos cónyuges. Los actos de administración ordinarios podrán realizarse por cualquiera de los cónyuges."
+    }
+  ]
+}

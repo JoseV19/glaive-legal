@@ -1,0 +1,158 @@
+{
+  "titulo": "Ley de Tránsito",
+  "categoria": "Administrativo",
+  "abreviatura": "LT",
+  "año": 1996,
+  "articulos": [
+    {
+      "numero": "1",
+      "titulo": "Objeto de la Ley",
+      "contenido": "La presente ley tiene por objeto regular lo relativo al tránsito en las vías terrestres de la República de Guatemala, sean éstas urbanas, extraurbanas y caminos vecinales, y será aplicable a las personas y vehículos que se encuentren en el territorio nacional, así como a las personas que realicen actividades vinculadas con el tránsito y transporte terrestre."
+    },
+    {
+      "numero": "2",
+      "titulo": "Autoridades de Tránsito",
+      "contenido": "Son autoridades de tránsito: a) El Ministerio de Gobernación; b) El Departamento de Tránsito de la Dirección General de la Policía Nacional Civil; c) Las municipalidades del país en su respectiva jurisdicción; d) Los jueces de asuntos municipales de tránsito."
+    },
+    {
+      "numero": "3",
+      "titulo": "Departamento de Tránsito",
+      "contenido": "El Departamento de Tránsito de la Dirección General de la Policía Nacional Civil será el encargado de llevar el control del tránsito en toda la República. Será el ente responsable de planificar, dirigir, administrar y controlar el tránsito en todo el territorio nacional, así como de velar por la seguridad vial."
+    },
+    {
+      "numero": "4",
+      "titulo": "Funciones del Departamento de Tránsito",
+      "contenido": "El Departamento de Tránsito tendrá las funciones siguientes: a) Administrar lo relativo al tránsito en las vías públicas; b) Normar y dirigir la actividad del control del tránsito; c) Extender licencias de conducir vehículos; d) Extender tarjetas de circulación de vehículos; e) Registrar los vehículos automotores terrestres que circulen en el país; f) Autorizar las placas de circulación de vehículos; g) Cualquier otra función que le asigne la presente ley y su reglamento."
+    },
+    {
+      "numero": "5",
+      "titulo": "Vía pública",
+      "contenido": "Para los efectos de esta ley, se entenderá por vía pública las carreteras, caminos, calles, avenidas, calzadas, bulevares, paseos, puentes, túneles, pasos a desnivel y cualquier otra vía de comunicación terrestre, que por disposición legal o de cualquier otra forma, esté destinada al libre tránsito, ya sea en zonas urbanas, extraurbanas o rurales."
+    },
+    {
+      "numero": "6",
+      "titulo": "Obligaciones de los usuarios de las vías",
+      "contenido": "Los conductores de vehículos, los pasajeros, los peatones y las personas que utilicen las vías públicas están obligados a obedecer las señales de tránsito, así como las indicaciones de las autoridades de tránsito. También están obligados a conducirse con la debida prudencia y precaución para garantizar su propia seguridad, la de los demás usuarios y la integridad de la vía pública y los bienes adyacentes."
+    },
+    {
+      "numero": "7",
+      "titulo": "Registro de vehículos",
+      "contenido": "Todo vehículo automotor terrestre que circule por la vía pública deberá estar debidamente registrado ante el Departamento de Tránsito y portar sus placas de circulación vigentes. El registro deberá contener como mínimo: nombre del propietario, dirección, marca, tipo, modelo, año, color, número de motor, número de chasis y cualquier otro dato que sea necesario para su identificación."
+    },
+    {
+      "numero": "8",
+      "titulo": "Tarjeta de circulación",
+      "contenido": "La tarjeta de circulación es el documento que acredita la inscripción de un vehículo automotor en el registro de vehículos del Departamento de Tránsito. Todo vehículo deberá portar su tarjeta de circulación vigente. La tarjeta de circulación contendrá los datos del vehículo y del propietario, así como la constancia de pago del impuesto de circulación correspondiente."
+    },
+    {
+      "numero": "9",
+      "titulo": "Placas de circulación",
+      "contenido": "Las placas de circulación son las señales externas de identificación de los vehículos. Todo vehículo que transite por las vías públicas deberá portar sus placas de circulación en los lugares y en la forma que establezca el reglamento de esta ley. Queda prohibido circular con placas de circulación que no correspondan al vehículo o que estén alteradas."
+    },
+    {
+      "numero": "10",
+      "titulo": "Cambio de propietario",
+      "contenido": "Cuando un vehículo cambie de propietario, el nuevo propietario está obligado a inscribir el traspaso en el Departamento de Tránsito dentro de los treinta días siguientes a la adquisición. La falta de inscripción del traspaso no exime al nuevo propietario de las responsabilidades inherentes a la propiedad del vehículo."
+    },
+    {
+      "numero": "11",
+      "titulo": "Obligatoriedad de licencia de conducir",
+      "contenido": "Para conducir un vehículo automotor en las vías públicas, toda persona deberá poseer licencia de conducir vigente expedida por el Departamento de Tránsito o por la autoridad que la ley autorice. Ninguna persona podrá conducir vehículo alguno si no posee la licencia respectiva."
+    },
+    {
+      "numero": "12",
+      "titulo": "Tipos de licencia",
+      "contenido": "Las licencias de conducir se clasifican así: a) Tipo A: Para conducir vehículos automotores de hasta tres y media toneladas métricas de peso bruto; b) Tipo B: Para conducir vehículos automotores de más de tres y media toneladas métricas de peso bruto; c) Tipo C: Para conducir vehículos de transporte colectivo de pasajeros; d) Tipo M: Para conducir motocicletas de cualquier cilindraje; e) Tipo E: Licencia especial para menores de edad, con las limitaciones que establezca el reglamento."
+    },
+    {
+      "numero": "13",
+      "titulo": "Requisitos para obtener licencia",
+      "contenido": "Para obtener una licencia de conducir, el interesado deberá cumplir con los requisitos siguientes: a) Ser mayor de dieciocho años de edad para licencias tipo A, B y C; b) Ser mayor de dieciséis años de edad para licencia tipo M; c) Presentar certificado médico que acredite aptitud física y mental para conducir; d) Aprobar los exámenes teóricos y prácticos que establezca el Departamento de Tránsito; e) Presentar documento de identificación personal; f) Los demás requisitos que establezca el reglamento de esta ley."
+    },
+    {
+      "numero": "14",
+      "titulo": "Vigencia de la licencia",
+      "contenido": "Las licencias de conducir tendrán una vigencia de dos años, contados a partir de la fecha de su expedición, pudiendo ser renovadas por períodos iguales, previo cumplimiento de los requisitos que establezca el reglamento. Las licencias vencidas no autorizan a conducir vehículos."
+    },
+    {
+      "numero": "15",
+      "titulo": "Suspensión de la licencia",
+      "contenido": "La licencia de conducir podrá ser suspendida temporal o definitivamente por resolución de autoridad competente, en los casos siguientes: a) Por haber cometido infracción que amerite dicha sanción, de conformidad con esta ley y su reglamento; b) Por resolución judicial; c) Cuando el titular presente deficiencia física o mental que lo inhabilite para conducir; d) Por acumulación de infracciones de tránsito, de conformidad con lo que establezca el reglamento."
+    },
+    {
+      "numero": "16",
+      "titulo": "Señalización vial",
+      "contenido": "La señalización de las vías públicas estará a cargo del Departamento de Tránsito y de las municipalidades en sus respectivas jurisdicciones. Las señales de tránsito serán las adoptadas internacionalmente conforme a los convenios de los que Guatemala sea parte. Ninguna persona podrá colocar, alterar, deteriorar o retirar señales de tránsito sin autorización de la autoridad competente."
+    },
+    {
+      "numero": "17",
+      "titulo": "Clasificación de las señales de tránsito",
+      "contenido": "Las señales de tránsito se clasifican en: a) Señales preventivas: que advierten sobre la existencia de un peligro; b) Señales restrictivas: que indican prohibiciones o limitaciones; c) Señales informativas: que identifican calles, carreteras, poblaciones o servicios; d) Señales horizontales: marcas sobre el pavimento; e) Señales luminosas: semáforos y señales electrónicas."
+    },
+    {
+      "numero": "18",
+      "titulo": "Semáforos",
+      "contenido": "Los semáforos son dispositivos de señalización mediante los cuales se regula el paso de vehículos y peatones en las intersecciones. La luz roja indica la obligación de detenerse; la luz amarilla indica prevención y que el semáforo está a punto de cambiar; la luz verde indica paso libre. Todo conductor y peatón está obligado a respetar las indicaciones de los semáforos."
+    },
+    {
+      "numero": "19",
+      "titulo": "Velocidades máximas",
+      "contenido": "Las velocidades máximas permitidas, salvo señalización contraria debidamente autorizada, serán las siguientes: a) En zona urbana: sesenta kilómetros por hora; b) En carreteras principales extraurbanas: noventa kilómetros por hora; c) En autopistas: cien kilómetros por hora; d) En zonas escolares, hospitalarias y de mercados: treinta kilómetros por hora. La autoridad correspondiente podrá modificar estos límites cuando las circunstancias así lo requieran."
+    },
+    {
+      "numero": "20",
+      "titulo": "Velocidad prudente",
+      "contenido": "Todo conductor está obligado a circular a una velocidad prudente y razonable, de acuerdo con las circunstancias del tránsito, las condiciones de la vía, la visibilidad, las condiciones climatológicas, el estado mecánico del vehículo y la densidad del tránsito, aun cuando la velocidad máxima señalada sea superior."
+    },
+    {
+      "numero": "21",
+      "titulo": "Derecho de vía",
+      "contenido": "En las intersecciones de vías, tendrá derecho de vía: a) El vehículo que circule por la vía preferencial debidamente señalizada; b) El vehículo que llegue primero a la intersección; c) El vehículo que circule por la derecha, cuando ambos lleguen al mismo tiempo; d) Los vehículos de emergencia con señales audibles y visibles activadas."
+    },
+    {
+      "numero": "22",
+      "titulo": "Prohibición de conducir bajo efectos de alcohol o drogas",
+      "contenido": "Se prohíbe conducir cualquier tipo de vehículo bajo los efectos de bebidas alcohólicas, drogas, estupefacientes o sustancias que alteren las funciones físicas o mentales. Se considerará que un conductor se encuentra bajo los efectos de bebidas alcohólicas cuando su nivel de alcohol en la sangre sea igual o superior a cero punto ochenta gramos por litro de sangre. Las autoridades de tránsito podrán practicar pruebas de alcoholemia o detección de drogas."
+    },
+    {
+      "numero": "23",
+      "titulo": "Uso obligatorio del cinturón de seguridad",
+      "contenido": "Es obligatorio el uso del cinturón de seguridad para el conductor y todos los ocupantes de un vehículo automotor, tanto en la parte delantera como en la parte trasera del vehículo, cuando éste lo tenga instalado. Los menores de doce años de edad deberán viajar en el asiento trasero del vehículo. Los menores de cuatro años deberán utilizar sistemas de retención infantil apropiados a su peso y talla."
+    },
+    {
+      "numero": "24",
+      "titulo": "Uso de casco protector para motociclistas",
+      "contenido": "Los conductores y pasajeros de motocicletas, bicimotos, y cualquier otro vehículo de dos o tres ruedas, están obligados a utilizar casco protector debidamente abrochado mientras circulen por las vías públicas. El casco protector deberá cumplir con las normas de calidad y seguridad que establezca el reglamento de esta ley."
+    },
+    {
+      "numero": "25",
+      "titulo": "Prohibiciones para conductores",
+      "contenido": "Queda prohibido a los conductores de vehículos: a) Conducir sin portar la licencia de conducir vigente; b) Conducir vehículos sin placas de circulación o con placas que no le correspondan; c) Hacer carreras o competencias de velocidad en la vía pública; d) Utilizar teléfonos celulares o cualquier aparato de comunicación mientras se conduce, salvo que se cuente con un dispositivo de manos libres; e) Conducir con exceso de pasajeros o carga; f) Conducir en sentido contrario; g) No respetar las señales de tránsito."
+    },
+    {
+      "numero": "26",
+      "titulo": "Accidentes de tránsito",
+      "contenido": "Todo conductor involucrado en un accidente de tránsito está obligado a detenerse inmediatamente y a prestar o solicitar auxilio a las personas afectadas. Deberá además dar aviso a la autoridad de tránsito más cercana y permanecer en el lugar del accidente hasta que se apersone dicha autoridad, salvo que necesite trasladar a los heridos a un centro asistencial. Queda prohibido mover los vehículos involucrados en un accidente antes de que la autoridad competente haya realizado la inspección del lugar."
+    },
+    {
+      "numero": "27",
+      "titulo": "Fuga del lugar del accidente",
+      "contenido": "El conductor que se dé a la fuga después de un accidente de tránsito en el que haya resultado lesionada o muerta alguna persona, será sancionado de conformidad con las leyes penales aplicables, sin perjuicio de las responsabilidades civiles que correspondan. La fuga constituirá una circunstancia agravante."
+    },
+    {
+      "numero": "28",
+      "titulo": "Seguro obligatorio de vehículos",
+      "contenido": "Todo propietario de vehículo automotor que circule por las vías públicas del país está obligado a contratar un seguro de responsabilidad civil contra terceros que cubra los daños corporales y materiales que pueda causar a otras personas con motivo de la circulación del vehículo. El seguro deberá estar vigente durante todo el tiempo que el vehículo circule."
+    },
+    {
+      "numero": "29",
+      "titulo": "Infracciones de tránsito",
+      "contenido": "Las infracciones a las normas de tránsito se clasifican en: a) Leves: las que no pongan en peligro la seguridad de las personas ni afecten significativamente la circulación vehicular; b) Graves: las que pongan en peligro la seguridad de las personas o afecten significativamente la circulación vehicular; c) Muy graves: las que causen o puedan causar grave peligro para la vida o la integridad física de las personas."
+    },
+    {
+      "numero": "30",
+      "titulo": "Sanciones",
+      "contenido": "Las infracciones a la presente ley serán sancionadas con multa, de conformidad con la siguiente escala: a) Infracciones leves: multa de cien a quinientos quetzales; b) Infracciones graves: multa de quinientos uno a dos mil quetzales; c) Infracciones muy graves: multa de dos mil uno a cinco mil quetzales. Además de la multa, podrá imponerse la suspensión temporal o definitiva de la licencia de conducir, la inmovilización del vehículo, o ambas, según la gravedad de la infracción."
+    }
+  ]
+}

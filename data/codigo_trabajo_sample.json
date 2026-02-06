@@ -1,0 +1,263 @@
+{
+  "titulo": "Código de Trabajo de Guatemala",
+  "categoria": "Laboral",
+  "abreviatura": "CT",
+  "año": 1961,
+  "articulos": [
+    {
+      "numero": "1",
+      "titulo": "Objeto del Código",
+      "contenido": "El presente Código regula los derechos y obligaciones de patronos y trabajadores, con ocasión del trabajo, y crea instituciones para resolver sus conflictos."
+    },
+    {
+      "numero": "2",
+      "titulo": "Definición de patrono",
+      "contenido": "Patrono es toda persona individual o jurídica que utiliza los servicios de uno o más trabajadores, en virtud de un contrato o relación de trabajo. Sin embargo, no quedan sujetas a las disposiciones de este Código, las personas jurídicas de Derecho Público a que se refiere el artículo 119 de la Constitución de la República."
+    },
+    {
+      "numero": "3",
+      "titulo": "Definición de trabajador",
+      "contenido": "Trabajador es toda persona individual que presta a un patrono sus servicios materiales, intelectuales o de ambos géneros, en virtud de un contrato o relación de trabajo."
+    },
+    {
+      "numero": "4",
+      "titulo": "Representantes del patrono",
+      "contenido": "Representantes del patrono son las personas individuales que ejercen a nombre de éste funciones de dirección o de administración, tales como gerentes, directores, administradores, reclutadores y todas las que estén legítimamente autorizadas por aquél. Los representantes del patrono en sus relaciones con los trabajadores, obligan directamente al patrono. Dichos representantes en sus relaciones con el patrono, salvo el caso de los mandatarios, están ligados con éste por un contrato o relación de trabajo."
+    },
+    {
+      "numero": "5",
+      "titulo": "Definición de intermediario",
+      "contenido": "Intermediario es toda persona que contrata en nombre propio los servicios de uno o más trabajadores para que ejecuten algún trabajo en beneficio de un patrono. Este último queda obligado solidariamente por la gestión de aquél para con el o los trabajadores, en cuanto se refiere a los efectos legales que se deriven de la Constitución, del presente Código, de sus reglamentos y demás disposiciones aplicables. No tiene carácter de intermediario y sí de patrono, el que se encargue, por contrato, de trabajos que ejecute con equipos o capitales propios."
+    },
+    {
+      "numero": "6",
+      "titulo": "Libertad de trabajo",
+      "contenido": "Sólo mediante resolución de autoridad competente basada en ley, dictada por motivo de orden público o de interés nacional, podrá limitarse a una persona su derecho al trabajo. Ninguno podrá impedir a otro que se dedique a la profesión o actividad lícita que le plazca. No se entenderán como limitaciones a la libertad de trabajo, las restricciones que establezca la ley para los que no posean la necesaria aptitud, ni las que se deriven de la protección especial que ésta otorga a los trabajadores guatemaltecos frente a los extranjeros."
+    },
+    {
+      "numero": "7",
+      "titulo": "Prohibiciones en zonas de trabajo",
+      "contenido": "Se prohíbe en las zonas de trabajo el funcionamiento de expendios de bebidas alcohólicas y de casas de asignación y la venta o introducción de bebidas o drogas embriagantes o estupefacientes, así como los juegos de azar y peleas de gallos. Esta prohibición es absoluta en las zonas de trabajo que estén situadas fuera del radio urbano de las poblaciones; y en cuanto a las situadas dentro de dicho radio, sólo se permite la venta de bebidas alcohólicas en las horas fuera de las de trabajo."
+    },
+    {
+      "numero": "8",
+      "titulo": "Trabajador del campo y de la ciudad",
+      "contenido": "Se entiende por trabajador del campo al que ejecuta su labor fuera de las zonas urbanas; y por trabajador de la ciudad al que la ejecuta dentro de las mismas."
+    },
+    {
+      "numero": "9",
+      "titulo": "Uso de idiomas en el trabajo",
+      "contenido": "Se prohíbe el uso de idiomas extranjeros en las órdenes, instrucciones, avisos o disposiciones que se den a los trabajadores. El personal de jefatura y todos los trabajadores que tengan a su cargo la dirección de labores, deben hablar el español y el idioma del lugar en los centros de trabajo cuyos trabajadores sean indígenas, cuando éstos no hablen el español."
+    },
+    {
+      "numero": "10",
+      "titulo": "Prohibición de coacción y represalias",
+      "contenido": "Se prohíbe a los patronos emplear cualquier medio de coacción o de represalia contra los trabajadores, con el fin de favorecerlos o perjudicarlos, o para que éstos les sigan concediendo favores, o para impedirles el ejercicio de derechos que les concedan la Constitución de la República, el presente Código, sus reglamentos o las demás leyes de trabajo o de previsión social."
+    },
+    {
+      "numero": "11",
+      "titulo": "Exención de impuestos fiscales",
+      "contenido": "Están exentos de los impuestos de papel sellado y timbres fiscales todos los actos jurídicos, documentos y actuaciones que se tramiten ante las autoridades de trabajo, los tribunales de trabajo y previsión social y el Instituto Guatemalteco de Seguridad Social, relativos a la aplicación de la legislación laboral y social."
+    },
+    {
+      "numero": "12",
+      "titulo": "Nulidad de actos que impliquen renuncia de derechos",
+      "contenido": "Son nulos ipso jure y no obligan a los contratantes, todos los actos o estipulaciones que impliquen renuncia, disminución o tergiversación de los derechos que la Constitución de la República, el presente Código, sus reglamentos y las demás leyes y disposiciones de trabajo o de previsión social otorguen a los trabajadores, aunque se expresen en un contrato colectivo o individual de trabajo, en un convenio o en otro documento."
+    },
+    {
+      "numero": "13",
+      "titulo": "Proporción de trabajadores guatemaltecos",
+      "contenido": "Todo patrono que ocupe permanentemente a diez o más trabajadores, debe emplear un mínimo de noventa por ciento de trabajadores guatemaltecos y pagar a éstos un mínimo del ochenta y cinco por ciento del total de salarios que en la respectiva empresa se devenguen. Estas proporciones pueden ser variadas por el Organismo Ejecutivo, mediante acuerdo gubernativo, cuando así lo exija la necesaria protección de la economía nacional, cuando no se encuentren en el país trabajadores guatemaltecos idóneos para desempeñar determinadas funciones, o cuando se trate de la aplicación de normas sobre inmigración aprobadas por el mismo Organismo Ejecutivo."
+    },
+    {
+      "numero": "14",
+      "titulo": "Ámbito de aplicación del Código",
+      "contenido": "Las disposiciones de este Código y sus reglamentos son de orden público y a sus normas deben sujetarse todas las empresas de cualquier naturaleza que sean, existentes o que en lo futuro se establezcan en Guatemala, lo mismo que todos los habitantes de la República, sin distinción de sexo ni de nacionalidad, salvo las personas jurídicas de derecho público contempladas en el segundo párrafo del artículo 2. Igualmente deben aplicarse las disposiciones protectoras del trabajador que contiene este Código, al caso de nacionales que sean contratados en el país para prestar sus servicios en el extranjero."
+    },
+    {
+      "numero": "14 bis",
+      "titulo": "Prohibición de discriminación",
+      "contenido": "Se prohíbe la discriminación por motivo de raza, religión, credos políticos y situación económica, en los establecimientos de asistencia social, educación, cultura, diversiones o comercio que funcionen para el uso o beneficio de trabajadores, en las empresas o sitios de trabajo de propiedad particular, o en los que el Estado cree para los trabajadores en general."
+    },
+    {
+      "numero": "15",
+      "titulo": "Integración del derecho laboral",
+      "contenido": "Los casos no previstos por este Código, por sus reglamentos o por las demás leyes relativas al trabajo, se deben resolver, en primer término, de acuerdo con los principios del derecho de trabajo; en segundo lugar, de acuerdo con la equidad, la costumbre o el uso locales, en armonía con dichos principios; y por último, de acuerdo con los principios y leyes de derecho común."
+    },
+    {
+      "numero": "16",
+      "titulo": "Preeminencia de leyes laborales",
+      "contenido": "En caso de conflicto entre las leyes de trabajo o de previsión social con las de cualquier otra índole, deben predominar las primeras. No hay preeminencia entre las leyes de trabajo y las de previsión social."
+    },
+    {
+      "numero": "17",
+      "titulo": "Interpretación del Código",
+      "contenido": "Para los efectos de interpretar el presente Código, sus reglamentos y demás leyes de trabajo, se debe tomar en cuenta, fundamentalmente, el interés de los trabajadores en armonía con la conveniencia social."
+    },
+    {
+      "numero": "18",
+      "titulo": "Contrato individual de trabajo",
+      "contenido": "Contrato individual de trabajo, sea cual fuere su denominación, es el vínculo económico-jurídico mediante el que una persona (trabajador), queda obligada a prestar a otra (patrono), sus servicios personales o a ejecutarle una obra, personalmente, bajo la dependencia continuada y dirección inmediata o delegada de esta última, a cambio de una retribución de cualquier clase o forma. En el caso de los gerentes, directores, administradores, superintendentes, jefes generales de empresa, técnicos y demás trabajadores de categoría análoga a las enumeradas, dicha delegación puede incluso recaer en el propio trabajador. La exclusividad para la prestación de los servicios o ejecución de una obra, no es característica esencial de los contratos de trabajo, salvo el caso de incompatibilidad entre dos o más relaciones laborales, y sólo puede exigirse cuando así se haya convenido expresamente en el acto de la celebración del contrato."
+    },
+    {
+      "numero": "19",
+      "titulo": "Perfeccionamiento del contrato",
+      "contenido": "Para que el contrato individual de trabajo exista y se perfeccione, basta con que se inicie la relación de trabajo, que es el hecho mismo de la prestación de los servicios o de la ejecución de la obra, en las condiciones que determina el artículo precedente. Siempre que se celebre un contrato individual de trabajo y alguna de las partes incumpla sus términos antes de que se inicie la relación de trabajo, el caso se debe resolver de acuerdo con los principios civiles que obligan al que ha incumplido a pagar los daños y perjuicios que haya causado a la otra parte, pero el juicio respectivo es de competencia de los Tribunales de Trabajo y Previsión Social, los que deben aplicar sus propios procedimientos."
+    },
+    {
+      "numero": "20",
+      "titulo": "Obligaciones derivadas del contrato",
+      "contenido": "El contrato individual de trabajo obliga, no sólo a lo que se establece en él, sino: a) A la observancia de las obligaciones y derechos que este Código o los convenios internacionales ratificados por Guatemala, determinen para las partes de la relación laboral, siempre que concurran los presupuestos de hecho necesarios para que éstos surtan efecto; y b) A las consecuencias que del propio contrato se deriven según la buena fe, la equidad, el uso y costumbres locales o la ley. Las condiciones de trabajo que rijan un contrato o relación laboral, no pueden alterarse fundamental o permanentemente, salvo que haya acuerdo expreso entre las partes o que así lo autorice el Ministerio de Trabajo y Previsión Social, cuando lo justifique plenamente la situación económica de la empresa."
+    },
+    {
+      "numero": "21",
+      "titulo": "Servicio no determinado",
+      "contenido": "Si en el contrato individual de trabajo no se determina expresamente el servicio que deba prestarse, el trabajador queda obligado a desempeñar solamente el que sea compatible con sus fuerzas, aptitudes, estado o condición, y que sea del mismo género de los que formen el objeto del negocio, actividad o industria a que se dedique el patrono."
+    },
+    {
+      "numero": "22",
+      "titulo": "Garantías mínimas del contrato",
+      "contenido": "En todo contrato individual de trabajo deben entenderse incluidos por lo menos, las garantías y derechos que otorguen a los trabajadores la Constitución, el presente Código, sus reglamentos y las demás leyes de trabajo o de previsión social."
+    },
+    {
+      "numero": "23",
+      "titulo": "Sustitución del patrono",
+      "contenido": "La sustitución del patrono no afecta los contratos de trabajo existentes, en perjuicio del trabajador. El patrono sustituido queda solidariamente obligado con el nuevo patrono por las obligaciones derivadas de los contratos o de las disposiciones legales, nacidas antes de la fecha de la sustitución y hasta por el término de seis meses. Concluido este plazo, la responsabilidad subsiste únicamente para el nuevo patrono. Por las acciones originadas de hechos u omisiones del nuevo patrono no responde, en ningún caso, el patrono sustituido."
+    },
+    {
+      "numero": "24",
+      "titulo": "Responsabilidad por incumplimiento",
+      "contenido": "La falta de cumplimiento del contrato individual de trabajo o de la relación de trabajo, sólo obliga a los que en ella incurran a la responsabilidad económica respectiva, o sea a las prestaciones que determine este Código, sus reglamentos y las demás leyes de trabajo o de previsión social, sin que en ningún caso pueda hacerse coacción contra las personas."
+    },
+    {
+      "numero": "25",
+      "titulo": "Clasificación de contratos por su duración",
+      "contenido": "El contrato individual de trabajo puede ser: a) Por tiempo indefinido, cuando no se especifica fecha para su terminación; b) A plazo fijo, cuando se especifica fecha para su terminación o cuando se ha previsto el acaecimiento de algún hecho o circunstancia como la conclusión de una obra, que forzosamente ha de poner término a la relación de trabajo. En este segundo caso, se debe tomar en cuenta la actividad del trabajador en sí misma como objeto del contrato, y no el resultado de la obra; y c) Para obra determinada, cuando se ajusta globalmente o en forma alzada el precio de los servicios del trabajador desde que se inician las labores hasta que éstas concluyan, tomándose en cuenta el resultado del trabajo, o sea la obra realizada."
+    },
+    {
+      "numero": "26",
+      "titulo": "Presunción de contrato por tiempo indefinido",
+      "contenido": "Todo contrato individual de trabajo debe tenerse por celebrado por tiempo indefinido, salvo prueba o estipulación lícita y expresa en contrario. Deben tenerse siempre como contratos a plazo indefinido, aunque se hayan ajustado a plazo fijo o para obra determinada, los que se celebren en una empresa cuyas actividades sean de naturaleza permanente o continuada, si al vencimiento de dichos contratos subsiste la causa que les dio origen. En consecuencia, los contratos a plazo fijo y para obra determinada tienen carácter de excepción y sólo pueden celebrarse en los casos que así lo exija la naturaleza accidental o temporal del servicio que se va a prestar o de la obra que se va a ejecutar."
+    },
+    {
+      "numero": "27",
+      "titulo": "Contrato verbal",
+      "contenido": "El contrato individual de trabajo puede ser verbal cuando se refiera: a) A las labores agrícolas o ganaderas; b) Al servicio doméstico; c) A los trabajos accidentales o temporales que no excedan de sesenta días; y d) A la prestación de un trabajo para obra determinada, siempre que el valor de ésta no exceda de cien quetzales, y, si se hubiere señalado plazo para la entrega, siempre que éste no sea mayor de sesenta días. En todos estos casos el patrono queda obligado a suministrar, al momento de celebrarse el contrato, una tarjeta o constancia que únicamente debe contener la fecha de iniciación de la relación de trabajo, la remuneración estipulada y la duración del contrato y, al vencimiento de éste, una constancia de los días trabajados y del salario percibido."
+    },
+    {
+      "numero": "28",
+      "titulo": "Contrato escrito",
+      "contenido": "En los demás casos, el contrato individual de trabajo debe extenderse por escrito, en tres ejemplares: uno que debe recoger cada parte en el acto de celebrarse y otro que el patrono queda obligado a hacer llegar al Departamento Administrativo de Trabajo, directamente o por medio de la autoridad de trabajo más cercana, dentro de los quince días posteriores a su celebración, modificación o novación."
+    },
+    {
+      "numero": "29",
+      "titulo": "Contenido del contrato escrito",
+      "contenido": "El contrato escrito de trabajo debe contener: a) Los nombres, apellidos, edad, sexo, estado civil, nacionalidad y vecindad de los contratantes; b) La fecha de la iniciación de la relación de trabajo; c) La indicación de los servicios que el trabajador se obliga a prestar, o la naturaleza de la obra a ejecutar, especificando en lo posible las características y las condiciones de trabajo; d) El lugar o los lugares donde deben prestarse los servicios o ejecutarse la obra; e) La designación precisa del lugar donde viva el trabajador cuando se le contrata para prestar sus servicios o ejecutar una obra en lugar distinto de aquel donde viva habitualmente; f) La duración del contrato o la expresión de ser por tiempo indefinido o para la ejecución de obra determinada; g) El tiempo de la jornada de trabajo y las horas en que debe prestarse; h) El salario, beneficio, comisión o participación que debe recibir el trabajador; si se debe calcular por unidad de tiempo, por unidad de obra o de alguna otra manera, y la forma, período y lugar de pago; e i) Las demás estipulaciones legales en que convengan las partes."
+    },
+    {
+      "numero": "30",
+      "titulo": "Prueba del contrato",
+      "contenido": "La prueba plena del contrato escrito sólo puede hacerse con el documento respectivo. La falta de éste o la omisión de alguno de sus requisitos se debe imputar siempre al patrono y si a requerimiento de las autoridades de trabajo no lo exhibe, deben presumirse, salvo prueba en contrario, ciertas las estipulaciones de trabajo afirmadas por el trabajador. El contrato verbal se puede probar por los medios generales de prueba y, al efecto, pueden testimoniar los trabajadores al servicio del mismo patrono."
+    },
+    {
+      "numero": "31",
+      "titulo": "Capacidad para contratar",
+      "contenido": "Tienen también capacidad para contratar su trabajo, para percibir y disponer de la retribución convenida y, en general, para ejercer los derechos y acciones que se deriven del presente Código, de sus reglamentos y de las leyes de previsión social, los menores de edad, de uno u otro sexo, que tengan catorce años o más y los insolventes y fallidos. Las capacidades específicas a que alude el párrafo anterior, lo son sólo para los efectos de trabajo, y en consecuencia, no afectan en lo demás el estado de minoridad o, en su caso, el de incapacidad por insolvencia o quiebra."
+    },
+    {
+      "numero": "32",
+      "titulo": "Trabajo de menores de catorce años",
+      "contenido": "Los contratos relativos al trabajo de los jóvenes que tengan menos de catorce años, deben celebrarse con los representantes legales de éstos y, en su defecto, se necesita la autorización de la Inspección General de Trabajo. El producto del trabajo de los menores a que se refiere el párrafo anterior, lo deben percibir sus representantes legales, quienes tienen con respecto a éste la misma obligación que la ley les impone respecto del producto de los bienes de los menores."
+    },
+    {
+      "numero": "33",
+      "titulo": "Gastos de traslado del trabajador",
+      "contenido": "Si se contrata al trabajador para prestar sus servicios o ejecutar una obra dentro del territorio de la República, pero en lugar distinto al de aquel en que viva habitualmente, el patrono le debe pagar los gastos razonables de ida y regreso; y si el trabajo dura más de sesenta días, también los gastos de traslado y regreso de la familia del trabajador, cuando éste sea casado o tenga dependientes económicos, y la distancia entre la residencia habitual del trabajador y el lugar donde vaya a prestar sus servicios sea de quince kilómetros o más."
+    },
+    {
+      "numero": "34",
+      "titulo": "Contratos para servicios en el extranjero",
+      "contenido": "Se prohíbe celebrar contratos con trabajadores guatemaltecos para la prestación de servicios o ejecución de obras fuera del territorio de la República, sin permiso previo del Ministerio de Trabajo y Previsión Social, el cual no lo debe otorgar si no se llenan los requisitos siguientes: a) Que el interesado deposite en la Tesorería Nacional la suma necesaria para cubrir los gastos de repatriación del trabajador y de su familia; b) Que se otorgue la garantía de transporte de ida y vuelta para el trabajador y su familia; c) Que el contrato respectivo se celebre por escrito en tres ejemplares, con la intervención de la Inspección General de Trabajo; y d) Que se haga la inscripción del trabajador ante la misión diplomática o consular guatemalteca más cercana al lugar donde vaya a prestar sus servicios."
+    },
+    {
+      "numero": "35",
+      "titulo": "Casos en que no se autorizan contratos en el extranjero",
+      "contenido": "El Ministerio de Trabajo y Previsión Social no debe autorizar los contratos a que se refiere el artículo anterior, en los siguientes casos: a) Cuando el trabajador sea menor de edad; b) Cuando el trabajador no pueda garantizar debidamente la alimentación y techo de las personas que de él dependan económicamente; c) Cuando se trate de trabajadores cuya emigración sea necesaria para la economía nacional; y d) Cuando las condiciones de trabajo ofrecidas impliquen un perjuicio evidente para la salud o la dignidad del trabajador."
+    },
+    {
+      "numero": "36",
+      "titulo": "Excepciones para profesionales y técnicos",
+      "contenido": "Las restricciones contempladas en los dos artículos anteriores no rigen para los profesionales titulados ni para aquellos técnicos cuyo trabajo requiera conocimientos muy calificados."
+    },
+    {
+      "numero": "37",
+      "titulo": "Aplicación supletoria de disposiciones",
+      "contenido": "Todas las disposiciones de este capítulo se deben aplicar a las modalidades que se regulen en los siguientes, salvo que en éstos haya manifestación en contrario."
+    },
+    {
+      "numero": "38",
+      "titulo": "Contrato colectivo de trabajo",
+      "contenido": "Contrato colectivo de trabajo es el que se celebra entre uno o varios sindicatos de trabajadores y uno o varios patronos, o uno o varios sindicatos de patronos, por virtud del cual el sindicato o sindicatos de trabajadores se comprometen, bajo su responsabilidad, a que algunos o todos sus miembros ejecuten labores determinadas, mediante una remuneración que debe ser ajustada individualmente para cada uno de éstos y percibida en la misma forma."
+    },
+    {
+      "numero": "39",
+      "titulo": "Formalidades del contrato colectivo",
+      "contenido": "El contrato colectivo de trabajo debe celebrarse siempre por escrito, en tres ejemplares: uno para cada parte y otro que el patrono queda obligado a hacer llegar al Departamento Administrativo de Trabajo, directamente o por medio de la autoridad de trabajo más cercana, dentro de los quince días posteriores a su celebración, modificación o novación. La existencia del contrato colectivo de trabajo sólo puede probarse por medio del documento respectivo. La falta de éste da lugar a que el sindicato o sindicatos de trabajadores queden libres de la responsabilidad que hayan contraído conforme el artículo anterior y a que dicho contrato se transforme en tantas relaciones individuales de trabajo como trabajadores estén ligados por él."
+    },
+    {
+      "numero": "40",
+      "titulo": "Contenido del contrato colectivo",
+      "contenido": "En todo contrato colectivo de trabajo deben expresarse el nombre completo de las partes que lo celebren, la empresa o sección de la empresa o lugar de trabajo que abarque y las demás estipulaciones de los contratos escritos individuales de trabajo."
+    },
+    {
+      "numero": "41",
+      "titulo": "Representación sindical en el contrato colectivo",
+      "contenido": "En el contrato colectivo de trabajo, la representación del sindicato o sindicatos la deben comprobar los personeros de éstos, con la certificación de que están legalmente inscritos y con la de la copia del acta en que conste la autorización que la asamblea general les haya dado para celebrarlo. Si se trata de patronos no sindicalizados, su representación se debe comprobar conforme al derecho común."
+    },
+    {
+      "numero": "42",
+      "titulo": "Coexistencia de contratos colectivos",
+      "contenido": "Si dentro de la misma empresa hay varios sindicatos de trabajadores o trabajadores pertenecientes a varios sindicatos, pueden coexistir sus respectivos contratos colectivos; pero las condiciones de un contrato colectivo que entrañen mayores ventajas para los trabajadores de un sindicato que las condiciones que consigne otro contrato colectivo para los miembros de un sindicato diferente, se deben aplicar también a éstos últimos siempre que se trate de trabajo ejecutado en iguales condiciones."
+    },
+    {
+      "numero": "43",
+      "titulo": "Separación del patrono del sindicato patronal",
+      "contenido": "Si firmado un contrato colectivo de trabajo, el patrono se separa del sindicato o grupo de patronos que lo celebró, dicho contrato debe seguir rigiendo siempre la relación de aquel patrono con el sindicato o sindicatos de sus trabajadores que sean partes del mismo."
+    },
+    {
+      "numero": "44",
+      "titulo": "Disolución de sindicatos y contratos colectivos",
+      "contenido": "Las obligaciones y derechos individuales que surjan de un contrato colectivo de trabajo no se afectan por la disolución del sindicato de trabajadores o del sindicato de patronos que sea parte del mismo."
+    },
+    {
+      "numero": "45",
+      "titulo": "Responsabilidad sindical",
+      "contenido": "El sindicato que suscriba un contrato colectivo de trabajo tiene responsabilidad por las obligaciones contraídas por cada uno de sus miembros y puede ejercer también los derechos y acciones que a cada uno de éstos individualmente correspondan."
+    },
+    {
+      "numero": "46",
+      "titulo": "Acciones del sindicato para exigir cumplimiento",
+      "contenido": "El sindicato que sea parte de un contrato colectivo de trabajo puede ejercer los derechos y acciones que nazcan de éste, para exigir su cumplimiento y, en su caso, obtener el pago de las prestaciones o indemnizaciones que procedan, contra: a) Sus propios miembros; b) Los otros sindicatos que sean partes del contrato; c) Los miembros de los sindicatos a que se refiere el inciso anterior; y d) Cualquier otra persona obligada por el contrato."
+    },
+    {
+      "numero": "47",
+      "titulo": "Acciones individuales en contratos colectivos",
+      "contenido": "Los individuos obligados por un contrato colectivo de trabajo, sólo pueden ejercer los derechos y acciones que nazcan del mismo, para exigir su cumplimiento y, en su caso, obtener el pago de las prestaciones o indemnizaciones que procedan contra otros individuos o sindicatos o empresas que sean partes del contrato, cuando la falta de cumplimiento les ocasione un perjuicio individual."
+    },
+    {
+      "numero": "48",
+      "titulo": "Apersonamiento en litigios colectivos",
+      "contenido": "Cuando una acción fundada en un contrato colectivo de trabajo haya sido intentada por un individuo o un sindicato, el o los otros sindicatos afectados pueden apersonarse en el litigio, en razón del interés colectivo que su solución tenga para sus miembros."
+    },
+    {
+      "numero": "49",
+      "titulo": "Pacto colectivo de condiciones de trabajo",
+      "contenido": "Pacto colectivo de condiciones de trabajo es el que se celebra entre uno o varios sindicatos de trabajadores y uno o varios patronos, o uno o varios sindicatos de patronos, con el objeto de reglamentar las condiciones en que el trabajo deba prestarse y las demás materias relativas a éste. El pacto colectivo de condiciones de trabajo tiene carácter de ley profesional y a sus normas deben adaptarse todos los contratos individuales o colectivos existentes o que luego se realicen en las empresas, industrias o regiones que afecte."
+    },
+    {
+      "numero": "50",
+      "titulo": "Fuerza de ley del pacto colectivo",
+      "contenido": "Las estipulaciones del pacto colectivo de condiciones de trabajo tienen fuerza de ley para: a) Las partes que lo han suscrito; b) Todas las personas que en el momento de entrar en vigor el pacto, trabajen en la empresa o centro de producción a que aquél se refiera, en lo que dichas personas resulten favorecidas y aun cuando no sean miembros del sindicato o sindicatos de trabajadores que lo hubieren celebrado; y c) Los que concierten en lo futuro contratos individuales o colectivos dentro de la misma empresa o centro de producción afectados por el pacto, en el concepto de que dichos contratos no pueden celebrarse en condiciones menos favorables para los trabajadores que las contenidas en el pacto colectivo."
+    }
+  ]
+}
