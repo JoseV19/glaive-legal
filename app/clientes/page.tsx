@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Search, UserPlus, Building2, User, Phone, Mail, ChevronRight, Loader2, X, Plus, Briefcase } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import { getUserRole, canCreate } from '@/lib/roles';
 
 // --- INTERFACES ---
 interface Cliente {
@@ -31,6 +32,9 @@ export default function ClientesPage() {
     const [filter, setFilter] = useState('');
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
+    const [role, setRole] = useState(getUserRole());
+
+    useEffect(() => { setRole(getUserRole()); }, []);
 
     // --- FETCH CLIENTES con conteo de expedientes ---
     async function fetchClientes() {
@@ -68,12 +72,14 @@ export default function ClientesPage() {
                     <h1 className="text-3xl font-cinzel text-jack-white font-bold tracking-wide">Cartera de Clientes</h1>
                     <p className="text-jack-silver/50 text-sm mt-1 font-serif">Directorio de personas individuales y jurídicas.</p>
                 </div>
-                <button
-                    onClick={() => setShowModal(true)}
-                    className="px-4 py-2 bg-jack-gold text-jack-base font-bold tracking-wider text-sm flex items-center gap-2 hover:bg-white transition-all shadow-lg mt-4 md:mt-0"
-                >
-                    <UserPlus className="w-4 h-4" /> NUEVO CLIENTE
-                </button>
+                {canCreate(role) && (
+                    <button
+                        onClick={() => setShowModal(true)}
+                        className="px-4 py-2 bg-jack-gold text-jack-base font-bold tracking-wider text-sm flex items-center gap-2 hover:bg-white transition-all shadow-lg mt-4 md:mt-0"
+                    >
+                        <UserPlus className="w-4 h-4" /> NUEVO CLIENTE
+                    </button>
+                )}
             </div>
 
             {/* SEARCH */}

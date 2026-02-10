@@ -55,6 +55,43 @@ h3 {
       #00bfff15 0.98cm);
 }
 
+/* Landing page utilities */
+html {
+  scroll-behavior: smooth;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #Cfb568 0%, #E8E6E1 50%, #Cfb568 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: translateX(-100%);
+}
+
+.btn-shimmer:hover::after {
+  animation: shimmer 0.7s ease-in-out;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
 /* ... todo lo anterior ... */
 
 /* ESTILOS DE IMPRESIÓN (Oculta la interfaz oscura, deja solo el papel) */
@@ -86,5 +123,23 @@ h3 {
   /* Ocultamos líneas guía y numeración si el papel físico ya las trae */
   .no-print {
     display: none !important;
+  }
+
+  /* Plantilla preview print */
+  #plantilla-preview,
+  #plantilla-preview * {
+    visibility: visible;
+  }
+
+  #plantilla-preview {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: white !important;
+    color: black !important;
+    font-family: 'Times New Roman', serif;
+    font-size: 12pt;
+    line-height: 1.8;
+    padding: 2cm 2.5cm;
   }
 }

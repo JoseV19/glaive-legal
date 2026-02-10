@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, FolderPlus, Clock, AlertCircle, CheckCircle2, Archive, Loader2, X, Plus } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import { getUserRole, canCreate } from '@/lib/roles';
 
 // --- INTERFACES ---
 interface Cliente {
@@ -63,6 +64,9 @@ export default function ExpedientesPage() {
     const [filter, setFilter] = useState('');
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
+    const [role, setRole] = useState(getUserRole());
+
+    useEffect(() => { setRole(getUserRole()); }, []);
 
     // --- FETCH EXPEDIENTES ---
     async function fetchExpedientes() {
@@ -110,14 +114,16 @@ export default function ExpedientesPage() {
                     <h1 className="text-3xl font-cinzel text-jack-white font-bold tracking-wide">Expedientes</h1>
                     <p className="text-jack-silver/50 text-sm mt-1 font-serif">Gestión centralizada de litigios y trámites notariales.</p>
                 </div>
-                <div className="flex gap-3 mt-4 md:mt-0">
-                    <button
-                        onClick={() => setShowModal(true)}
-                        className="px-4 py-2 bg-jack-crimson text-white font-bold tracking-wider text-sm flex items-center gap-2 hover:bg-red-900 shadow-[0_0_15px_rgba(122,31,46,0.4)] transition-all"
-                    >
-                        <FolderPlus className="w-4 h-4" /> NUEVO CASO
-                    </button>
-                </div>
+                {canCreate(role) && (
+                    <div className="flex gap-3 mt-4 md:mt-0">
+                        <button
+                            onClick={() => setShowModal(true)}
+                            className="px-4 py-2 bg-jack-crimson text-white font-bold tracking-wider text-sm flex items-center gap-2 hover:bg-red-900 shadow-[0_0_15px_rgba(122,31,46,0.4)] transition-all"
+                        >
+                            <FolderPlus className="w-4 h-4" /> NUEVO CASO
+                        </button>
+                    </div>
+                )}
             </div>
 
             {/* BARRA DE BÚSQUEDA */}
@@ -274,7 +280,7 @@ function NuevoCasoModal({ clientes, onClose, onCreated }: {
         }
 
         setSaving(true);
-        const { error: dbError } = await supabase
+        const { data: inserted, error: dbError } = await supabase
             .from('expedientes')
             .insert({
                 numero_caso: form.numero_caso.trim(),
@@ -283,12 +289,30 @@ function NuevoCasoModal({ clientes, onClose, onCreated }: {
                 estado: form.estado,
                 juzgado: form.juzgado.trim() || null,
                 descripcion: form.descripcion.trim() || null,
-            });
+            })
+            .select('id')
+            .single();
 
         if (dbError) {
             setError(dbError.message);
             setSaving(false);
             return;
+        }
+
+        // Auto-notify + log activity
+        if (inserted) {
+            const userName = localStorage.getItem('user_name') || 'Sistema';
+            await supabase.from('notificaciones').insert({
+                tipo: 'expediente_creado',
+                mensaje: `Nuevo expediente ${form.numero_caso.trim()} creado por ${userName}`,
+                expediente_id: inserted.id,
+            });
+            await supabase.from('actividades').insert({
+                expediente_id: inserted.id,
+                tipo: 'creacion',
+                descripcion: `Expediente ${form.numero_caso.trim()} creado — ${form.materia}`,
+                usuario: userName,
+            });
         }
 
         onCreated();

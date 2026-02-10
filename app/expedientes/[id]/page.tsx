@@ -5,9 +5,10 @@ import Link from 'next/link';
 import {
     ArrowLeft, Loader2, FileText, Upload, Download, Trash2, X,
     User, MapPin, Scale, Calendar, AlertCircle, CheckCircle2, Archive,
-    File, Image, FileSpreadsheet
+    File, Image, FileSpreadsheet, FolderPlus, RefreshCw, MessageSquare, Send
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import { getUserRole, canEdit, canDelete } from '@/lib/roles';
 
 // --- INTERFACES ---
 interface Expediente {
@@ -33,6 +34,14 @@ interface Documento {
     archivo_url: string;
     tipo: string | null;
     tamaño: number | null;
+    created_at: string;
+}
+
+interface Actividad {
+    id: number;
+    tipo: string;
+    descripcion: string;
+    usuario: string;
     created_at: string;
 }
 
@@ -83,9 +92,13 @@ export default function ExpedienteDetailPage() {
 
     const [expediente, setExpediente] = useState<Expediente | null>(null);
     const [documentos, setDocumentos] = useState<Documento[]>([]);
+    const [actividades, setActividades] = useState<Actividad[]>([]);
     const [loading, setLoading] = useState(true);
     const [uploading, setUploading] = useState(false);
     const [dragOver, setDragOver] = useState(false);
+    const [role] = useState(getUserRole());
+    const [nuevaNota, setNuevaNota] = useState('');
+    const [savingNota, setSavingNota] = useState(false);
 
     // --- FETCH EXPEDIENTE ---
     useEffect(() => {
@@ -115,6 +128,20 @@ export default function ExpedienteDetailPage() {
         fetchDocumentos();
     }, [fetchDocumentos]);
 
+    // --- FETCH ACTIVIDADES ---
+    const fetchActividades = useCallback(async () => {
+        const { data } = await supabase
+            .from('actividades')
+            .select('*')
+            .eq('expediente_id', id)
+            .order('created_at', { ascending: false });
+        setActividades((data as unknown as Actividad[]) || []);
+    }, [id]);
+
+    useEffect(() => {
+        fetchActividades();
+    }, [fetchActividades]);
+
     // --- SUBIR ARCHIVO ---
     async function handleUpload(files: FileList | null) {
         if (!files || files.length === 0) return;
@@ -143,9 +170,24 @@ export default function ExpedienteDetailPage() {
                 tipo: file.type,
                 tamaño: file.size,
             });
+
+            // Auto-notify + log activity
+            const userName = localStorage.getItem('user_name') || 'Sistema';
+            await supabase.from('notificaciones').insert({
+                tipo: 'documento_subido',
+                mensaje: `Documento "${file.name}" subido al expediente ${expediente?.numero_caso || id}`,
+                expediente_id: Number(id),
+            });
+            await supabase.from('actividades').insert({
+                expediente_id: Number(id),
+                tipo: 'documento_subido',
+                descripcion: `Documento "${file.name}" subido`,
+                usuario: userName,
+            });
         }
 
         await fetchDocumentos();
+        await fetchActividades();
         setUploading(false);
     }
 
@@ -161,7 +203,18 @@ export default function ExpedienteDetailPage() {
         }
 
         await supabase.from('documentos').delete().eq('id', doc.id);
+
+        // Log activity
+        const userName = localStorage.getItem('user_name') || 'Sistema';
+        await supabase.from('actividades').insert({
+            expediente_id: Number(id),
+            tipo: 'documento_eliminado',
+            descripcion: `Documento "${doc.nombre}" eliminado`,
+            usuario: userName,
+        });
+
         await fetchDocumentos();
+        await fetchActividades();
     }
 
     // --- DRAG & DROP ---
@@ -271,41 +324,43 @@ export default function ExpedienteDetailPage() {
                 </h2>
 
                 {/* ZONA DE DRAG & DROP */}
-                <div
-                    onDragOver={handleDragOver}
-                    onDragLeave={handleDragLeave}
-                    onDrop={handleDrop}
-                    className={`relative border-2 border-dashed rounded-lg p-8 text-center transition-all cursor-pointer
-                        ${dragOver
-                            ? 'border-jack-gold bg-jack-gold/10'
-                            : 'border-jack-gold/20 bg-jack-panel hover:border-jack-gold/40'
-                        }`}
-                >
-                    <input
-                        type="file"
-                        multiple
-                        accept=".pdf,.jpg,.jpeg,.png,.gif,.doc,.docx,.xls,.xlsx"
-                        onChange={(e) => handleUpload(e.target.files)}
-                        className="absolute inset-0 opacity-0 cursor-pointer"
-                        disabled={uploading}
-                    />
-                    {uploading ? (
-                        <div className="flex flex-col items-center gap-3">
-                            <Loader2 className="w-8 h-8 animate-spin text-jack-gold" />
-                            <p className="text-jack-gold text-sm font-bold">Subiendo archivos...</p>
-                        </div>
-                    ) : (
-                        <div className="flex flex-col items-center gap-3">
-                            <Upload className={`w-8 h-8 ${dragOver ? 'text-jack-gold' : 'text-jack-gold/30'}`} />
-                            <div>
-                                <p className="text-jack-white text-sm font-bold">
-                                    Arrastra archivos aquí o <span className="text-jack-gold">haz clic para seleccionar</span>
-                                </p>
-                                <p className="text-jack-silver/40 text-xs mt-1">PDF, Imágenes, Word, Excel</p>
+                {canEdit(role) && (
+                    <div
+                        onDragOver={handleDragOver}
+                        onDragLeave={handleDragLeave}
+                        onDrop={handleDrop}
+                        className={`relative border-2 border-dashed rounded-lg p-8 text-center transition-all cursor-pointer
+                            ${dragOver
+                                ? 'border-jack-gold bg-jack-gold/10'
+                                : 'border-jack-gold/20 bg-jack-panel hover:border-jack-gold/40'
+                            }`}
+                    >
+                        <input
+                            type="file"
+                            multiple
+                            accept=".pdf,.jpg,.jpeg,.png,.gif,.doc,.docx,.xls,.xlsx"
+                            onChange={(e) => handleUpload(e.target.files)}
+                            className="absolute inset-0 opacity-0 cursor-pointer"
+                            disabled={uploading}
+                        />
+                        {uploading ? (
+                            <div className="flex flex-col items-center gap-3">
+                                <Loader2 className="w-8 h-8 animate-spin text-jack-gold" />
+                                <p className="text-jack-gold text-sm font-bold">Subiendo archivos...</p>
                             </div>
-                        </div>
-                    )}
-                </div>
+                        ) : (
+                            <div className="flex flex-col items-center gap-3">
+                                <Upload className={`w-8 h-8 ${dragOver ? 'text-jack-gold' : 'text-jack-gold/30'}`} />
+                                <div>
+                                    <p className="text-jack-white text-sm font-bold">
+                                        Arrastra archivos aquí o <span className="text-jack-gold">haz clic para seleccionar</span>
+                                    </p>
+                                    <p className="text-jack-silver/40 text-xs mt-1">PDF, Imágenes, Word, Excel</p>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
 
                 {/* LISTA DE DOCUMENTOS */}
                 {documentos.length === 0 ? (
@@ -343,13 +398,91 @@ export default function ExpedienteDetailPage() {
                                     >
                                         <Download className="w-4 h-4" />
                                     </a>
-                                    <button
-                                        onClick={() => handleDelete(doc)}
-                                        className="p-2 text-jack-silver/40 hover:text-jack-crimson hover:bg-jack-crimson/10 rounded transition-colors"
-                                        title="Eliminar"
-                                    >
-                                        <Trash2 className="w-4 h-4" />
-                                    </button>
+                                    {canDelete(role) && (
+                                        <button
+                                            onClick={() => handleDelete(doc)}
+                                            className="p-2 text-jack-silver/40 hover:text-jack-crimson hover:bg-jack-crimson/10 rounded transition-colors"
+                                            title="Eliminar"
+                                        >
+                                            <Trash2 className="w-4 h-4" />
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+
+            {/* HISTORIAL DE ACTIVIDAD */}
+            <div className="space-y-4">
+                <h2 className="text-jack-white font-cinzel font-bold text-lg border-b border-jack-gold/10 pb-2">
+                    Historial de Actividad
+                </h2>
+
+                {/* Agregar nota manual */}
+                {canEdit(role) && (
+                    <div className="flex gap-3">
+                        <input
+                            type="text"
+                            value={nuevaNota}
+                            onChange={(e) => setNuevaNota(e.target.value)}
+                            placeholder="Agregar nota o comentario..."
+                            className="flex-1 bg-jack-panel border border-jack-gold/20 focus:border-jack-gold rounded px-4 py-3 text-jack-white text-sm focus:outline-none transition-colors"
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' && nuevaNota.trim()) {
+                                    e.preventDefault();
+                                    handleAddNota();
+                                }
+                            }}
+                        />
+                        <button
+                            onClick={handleAddNota}
+                            disabled={savingNota || !nuevaNota.trim()}
+                            className="px-4 py-3 bg-jack-gold text-jack-base font-bold text-xs tracking-widest uppercase hover:bg-white transition-colors rounded disabled:opacity-50 flex items-center gap-2"
+                        >
+                            {savingNota ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                        </button>
+                    </div>
+                )}
+
+                {/* Timeline */}
+                {actividades.length === 0 ? (
+                    <div className="text-center py-8 text-jack-silver/30">
+                        <MessageSquare className="w-8 h-8 mx-auto mb-2 opacity-30" />
+                        <p className="text-sm font-serif">No hay actividad registrada.</p>
+                    </div>
+                ) : (
+                    <div className="relative pl-6 space-y-0">
+                        {/* Vertical line */}
+                        <div className="absolute left-[11px] top-2 bottom-2 w-px bg-jack-gold/15" />
+
+                        {actividades.map((act) => (
+                            <div key={act.id} className="relative pb-6 last:pb-0">
+                                {/* Dot */}
+                                <div className={`absolute -left-6 top-1 w-[22px] h-[22px] rounded-full border-2 flex items-center justify-center ${
+                                    act.tipo === 'creacion' ? 'border-blue-500 bg-blue-900/30' :
+                                    act.tipo === 'documento_subido' ? 'border-jack-gold bg-jack-gold/20' :
+                                    act.tipo === 'documento_eliminado' ? 'border-jack-crimson bg-jack-crimson/20' :
+                                    act.tipo === 'estado_actualizado' ? 'border-green-500 bg-green-900/30' :
+                                    'border-jack-silver/30 bg-jack-panel'
+                                }`}>
+                                    {act.tipo === 'creacion' && <FolderPlus className="w-3 h-3 text-blue-400" />}
+                                    {act.tipo === 'documento_subido' && <Upload className="w-3 h-3 text-jack-gold" />}
+                                    {act.tipo === 'documento_eliminado' && <Trash2 className="w-3 h-3 text-jack-crimson" />}
+                                    {act.tipo === 'estado_actualizado' && <RefreshCw className="w-3 h-3 text-green-400" />}
+                                    {act.tipo === 'nota' && <MessageSquare className="w-3 h-3 text-jack-silver/60" />}
+                                </div>
+
+                                {/* Card */}
+                                <div className="bg-jack-panel border border-white/5 hover:border-jack-gold/20 rounded p-4 ml-4 transition-colors">
+                                    <p className="text-jack-white text-sm">{act.descripcion}</p>
+                                    <div className="flex items-center gap-3 mt-2 text-[10px] text-jack-silver/40">
+                                        <span className="flex items-center gap-1">
+                                            <User className="w-3 h-3" /> {act.usuario}
+                                        </span>
+                                        <span>{timeAgo(act.created_at)}</span>
+                                    </div>
                                 </div>
                             </div>
                         ))}
@@ -358,4 +491,19 @@ export default function ExpedienteDetailPage() {
             </div>
         </div>
     );
+
+    async function handleAddNota() {
+        if (!nuevaNota.trim()) return;
+        setSavingNota(true);
+        const userName = localStorage.getItem('user_name') || 'Sistema';
+        await supabase.from('actividades').insert({
+            expediente_id: Number(id),
+            tipo: 'nota',
+            descripcion: nuevaNota.trim(),
+            usuario: userName,
+        });
+        setNuevaNota('');
+        await fetchActividades();
+        setSavingNota(false);
+    }
 }
