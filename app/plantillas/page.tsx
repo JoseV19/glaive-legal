@@ -2,9 +2,10 @@
 import { useState, useEffect, useCallback } from 'react';
 import {
     FileSignature, Gavel, FileText, Users2, Stamp, ScrollText,
-    Loader2, X, Printer, ChevronRight, Search, Hash
+    Loader2, X, Printer, ChevronRight, Search, Hash, Plus, Pencil, Trash2, Save
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import { getUserRole, canEdit, canDelete, canCreate } from '@/lib/roles';
 
 // --- INTERFACES ---
 interface Plantilla {
@@ -43,23 +44,29 @@ const tipoColors: Record<string, string> = {
     'acta': 'bg-jack-gold/10 text-jack-gold border-jack-gold/20',
 };
 
+const TIPOS_PLANTILLA = ['demanda', 'memorial', 'contrato', 'poder', 'acta'];
+
 export default function PlantillasPage() {
     const [plantillas, setPlantillas] = useState<Plantilla[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedPlantilla, setSelectedPlantilla] = useState<Plantilla | null>(null);
     const [filter, setFilter] = useState('');
+    const [showForm, setShowForm] = useState(false);
+    const [editingPlantilla, setEditingPlantilla] = useState<Plantilla | null>(null);
+    const [role] = useState(() => getUserRole());
+
+    const fetchPlantillas = useCallback(async () => {
+        const { data } = await supabase
+            .from('plantillas')
+            .select('*')
+            .order('nombre');
+        setPlantillas((data as unknown as Plantilla[]) || []);
+        setLoading(false);
+    }, []);
 
     useEffect(() => {
-        async function fetch() {
-            const { data } = await supabase
-                .from('plantillas')
-                .select('*')
-                .order('nombre');
-            setPlantillas((data as unknown as Plantilla[]) || []);
-            setLoading(false);
-        }
-        fetch();
-    }, []);
+        fetchPlantillas();
+    }, [fetchPlantillas]);
 
     const filtered = plantillas.filter((p) => {
         if (!filter.trim()) return true;
@@ -67,12 +74,40 @@ export default function PlantillasPage() {
         return p.nombre.toLowerCase().includes(term) || p.tipo.toLowerCase().includes(term);
     });
 
+    const handleDelete = async (e: React.MouseEvent, id: number) => {
+        e.stopPropagation();
+        if (!confirm('¿Eliminar esta plantilla?')) return;
+        await supabase.from('plantillas').delete().eq('id', id);
+        await fetchPlantillas();
+    };
+
+    const handleEdit = (e: React.MouseEvent, plantilla: Plantilla) => {
+        e.stopPropagation();
+        setEditingPlantilla(plantilla);
+        setShowForm(true);
+    };
+
+    const handleNew = () => {
+        setEditingPlantilla(null);
+        setShowForm(true);
+    };
+
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* HEADER */}
-            <div className="border-b border-jack-gold/10 pb-6">
-                <h1 className="text-3xl font-cinzel text-jack-white font-bold tracking-wide">Plantillas</h1>
-                <p className="text-jack-silver/50 text-sm mt-1 font-serif">Generacion de documentos legales con campos dinamicos.</p>
+            <div className="border-b border-jack-gold/10 pb-6 flex justify-between items-end">
+                <div>
+                    <h1 className="text-3xl font-cinzel text-jack-white font-bold tracking-wide">Plantillas</h1>
+                    <p className="text-jack-silver/50 text-sm mt-1 font-serif">Generacion de documentos legales con campos dinamicos.</p>
+                </div>
+                {canCreate(role) && (
+                    <button
+                        onClick={handleNew}
+                        className="px-4 py-2 bg-jack-gold text-jack-base font-bold text-xs tracking-widest uppercase hover:bg-white transition-colors rounded flex items-center gap-2"
+                    >
+                        <Plus className="w-4 h-4" /> NUEVA PLANTILLA
+                    </button>
+                )}
             </div>
 
             {/* SEARCH */}
@@ -125,7 +160,19 @@ export default function PlantillasPage() {
                                 {plantilla.campos_dinamicos?.length || 0} campos dinamicos
                             </div>
 
-                            <div className="mt-4 pt-4 border-t border-white/5 flex justify-end">
+                            <div className="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
+                                <div className="flex items-center gap-2">
+                                    {canEdit(role) && (
+                                        <button onClick={(e) => handleEdit(e, plantilla)} className="p-1.5 text-jack-silver/30 hover:text-jack-gold transition-colors">
+                                            <Pencil className="w-3.5 h-3.5" />
+                                        </button>
+                                    )}
+                                    {canDelete(role) && (
+                                        <button onClick={(e) => handleDelete(e, plantilla.id)} className="p-1.5 text-jack-silver/30 hover:text-jack-crimson transition-colors">
+                                            <Trash2 className="w-3.5 h-3.5" />
+                                        </button>
+                                    )}
+                                </div>
                                 <ChevronRight className="w-4 h-4 text-jack-silver/30 group-hover:translate-x-1 group-hover:text-jack-gold transition-all" />
                             </div>
                         </div>
@@ -133,18 +180,26 @@ export default function PlantillasPage() {
                 </div>
             )}
 
-            {/* MODAL */}
+            {/* MODAL VISTA/FILL */}
             {selectedPlantilla && (
                 <PlantillaModal
                     plantilla={selectedPlantilla}
                     onClose={() => setSelectedPlantilla(null)}
                 />
             )}
+
+            {/* MODAL CREAR/EDITAR */}
+            {showForm && (
+                <PlantillaForm
+                    item={editingPlantilla}
+                    onClose={() => { setShowForm(false); setEditingPlantilla(null); fetchPlantillas(); }}
+                />
+            )}
         </div>
     );
 }
 
-// --- MODAL DE PLANTILLA ---
+// --- MODAL DE PLANTILLA (vista + fill) ---
 function PlantillaModal({ plantilla, onClose }: {
     plantilla: Plantilla;
     onClose: () => void;
@@ -153,7 +208,6 @@ function PlantillaModal({ plantilla, onClose }: {
     const [expedientes, setExpedientes] = useState<Expediente[]>([]);
     const [selectedExp, setSelectedExp] = useState('');
 
-    // Fetch expedientes para auto-relleno
     useEffect(() => {
         async function fetch() {
             const { data } = await supabase
@@ -165,7 +219,6 @@ function PlantillaModal({ plantilla, onClose }: {
         fetch();
     }, []);
 
-    // Auto-relleno al seleccionar expediente
     useEffect(() => {
         if (!selectedExp) return;
         const exp = expedientes.find((e) => String(e.id) === selectedExp);
@@ -175,7 +228,6 @@ function PlantillaModal({ plantilla, onClose }: {
         const today = new Date();
         const dateStr = today.toLocaleDateString('es-GT', { day: 'numeric', month: 'long', year: 'numeric' });
 
-        // Map common field names to expediente data
         const mappings: Record<string, string> = {
             'nombre_demandante': exp.clientes.nombre,
             'nombre_cliente': exp.clientes.nombre,
@@ -203,7 +255,6 @@ function PlantillaModal({ plantilla, onClose }: {
         setCampos((prev) => ({ ...prev, ...autoFill }));
     }, [selectedExp, expedientes, plantilla.campos_dinamicos]);
 
-    // Generate preview
     const preview = plantilla.campos_dinamicos.reduce((text, campo) => {
         const value = campos[campo];
         if (value) {
@@ -272,7 +323,6 @@ function PlantillaModal({ plantilla, onClose }: {
                 <div className="flex-1 flex overflow-hidden">
                     {/* Left: Form */}
                     <div className="w-full md:w-2/5 border-r border-jack-gold/10 p-6 overflow-y-auto space-y-4">
-                        {/* Vincular expediente */}
                         <div>
                             <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">
                                 Vincular Expediente (opcional)
@@ -326,6 +376,120 @@ function PlantillaModal({ plantilla, onClose }: {
                             />
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// --- FORMULARIO CREAR/EDITAR PLANTILLA ---
+function PlantillaForm({ item, onClose }: { item: Plantilla | null; onClose: () => void }) {
+    const [form, setForm] = useState({
+        nombre: item?.nombre || '',
+        tipo: item?.tipo || 'demanda',
+        contenido: item?.contenido || '',
+    });
+    const [saving, setSaving] = useState(false);
+
+    // Auto-extract campos_dinamicos from content
+    const extractCampos = (text: string): string[] => {
+        const matches = text.match(/\{\{(\w+)\}\}/g) || [];
+        const names = matches.map(m => m.replace(/\{\{|\}\}/g, ''));
+        return names.filter((v, i, a) => a.indexOf(v) === i);
+    };
+
+    const campos = extractCampos(form.contenido);
+
+    const handleSave = async () => {
+        if (!form.nombre.trim() || !form.contenido.trim()) {
+            alert('Nombre y contenido son obligatorios.');
+            return;
+        }
+        setSaving(true);
+        const payload = {
+            nombre: form.nombre.trim(),
+            tipo: form.tipo,
+            contenido: form.contenido,
+            campos_dinamicos: campos,
+        };
+
+        if (item) {
+            await supabase.from('plantillas').update(payload).eq('id', item.id);
+        } else {
+            await supabase.from('plantillas').insert(payload);
+        }
+        setSaving(false);
+        onClose();
+    };
+
+    const set = (key: string, val: string) => setForm(prev => ({ ...prev, [key]: val }));
+
+    return (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+            <div className="bg-jack-base border border-jack-gold w-full max-w-4xl h-[85vh] flex flex-col shadow-2xl rounded-sm">
+                <div className="p-5 border-b border-jack-gold/20 bg-jack-panel flex justify-between items-center flex-shrink-0">
+                    <h3 className="text-lg font-cinzel text-jack-white font-bold">
+                        {item ? 'Editar Plantilla' : 'Nueva Plantilla'}
+                    </h3>
+                    <button onClick={onClose} className="text-jack-silver hover:text-white"><X className="w-5 h-5" /></button>
+                </div>
+
+                <div className="flex-1 flex overflow-hidden">
+                    {/* Left: Editor */}
+                    <div className="flex-1 p-5 flex flex-col gap-4 overflow-y-auto">
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Nombre</label>
+                                <input value={form.nombre} onChange={e => set('nombre', e.target.value)} placeholder="Demanda Laboral Ordinaria" className="w-full bg-jack-panel border border-jack-gold/20 focus:border-jack-gold rounded px-4 py-2.5 text-jack-white focus:outline-none text-sm" />
+                            </div>
+                            <div>
+                                <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Tipo</label>
+                                <select value={form.tipo} onChange={e => set('tipo', e.target.value)} className="w-full bg-jack-panel border border-jack-gold/20 focus:border-jack-gold rounded px-4 py-2.5 text-jack-white focus:outline-none text-sm">
+                                    {TIPOS_PLANTILLA.map(t => <option key={t} value={t}>{t.charAt(0).toUpperCase() + t.slice(1)}</option>)}
+                                </select>
+                            </div>
+                        </div>
+                        <div className="flex-1 flex flex-col">
+                            <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">
+                                Contenido <span className="text-jack-silver/40 normal-case">(usa {`{{campo}}`} para campos dinamicos)</span>
+                            </label>
+                            <textarea
+                                value={form.contenido}
+                                onChange={e => set('contenido', e.target.value)}
+                                placeholder={`SEÑOR JUEZ DE PRIMERA INSTANCIA DE TRABAJO Y PREVISIÓN SOCIAL:\n\n{{nombre_demandante}}, de {{edad}} años de edad, {{estado_civil}}, guatemalteco(a)...`}
+                                className="flex-1 bg-jack-panel border border-jack-gold/20 focus:border-jack-gold rounded px-4 py-3 text-jack-white focus:outline-none text-sm resize-none font-mono leading-relaxed min-h-[300px]"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Right: Preview campos */}
+                    <div className="w-72 border-l border-jack-gold/10 p-5 overflow-y-auto bg-white/[0.02]">
+                        <p className="text-[10px] uppercase tracking-widest text-jack-gold/50 font-bold mb-4">
+                            Campos Detectados ({campos.length})
+                        </p>
+                        {campos.length === 0 ? (
+                            <p className="text-xs text-jack-silver/30 italic">
+                                Escribe {`{{nombre}}`} en el contenido para agregar campos.
+                            </p>
+                        ) : (
+                            <div className="space-y-2">
+                                {campos.map(campo => (
+                                    <div key={campo} className="bg-jack-panel border border-jack-gold/10 px-3 py-2 rounded text-sm text-jack-gold flex items-center gap-2">
+                                        <Hash className="w-3 h-3 text-jack-gold/50" />
+                                        {campo}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                <div className="p-5 border-t border-jack-gold/20 flex justify-end gap-3 flex-shrink-0">
+                    <button onClick={onClose} className="px-4 py-2 text-jack-silver hover:text-white text-sm transition-colors">Cancelar</button>
+                    <button onClick={handleSave} disabled={saving} className="px-6 py-2 bg-jack-gold text-jack-base font-bold text-xs tracking-widest uppercase hover:bg-white transition-colors rounded flex items-center gap-2 disabled:opacity-50">
+                        {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                        {item ? 'ACTUALIZAR' : 'CREAR'}
+                    </button>
                 </div>
             </div>
         </div>

@@ -12,9 +12,9 @@ const productLinks = [
 ];
 
 const legalLinks = [
-  { label: "Terminos de Servicio", href: "#" },
-  { label: "Politica de Privacidad", href: "#" },
-  { label: "Aviso Legal", href: "#" },
+  { label: "Terminos de Servicio", href: "/terminos" },
+  { label: "Politica de Privacidad", href: "/privacidad" },
+  { label: "Aviso Legal", href: "/aviso-legal" },
 ];
 
 export function Footer() {

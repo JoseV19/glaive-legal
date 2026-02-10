@@ -29,12 +29,16 @@ export function CTASection() {
             >
               COMENZAR AHORA <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link
-              href="/login"
+            <button
+              onClick={() =>
+                document
+                  .getElementById("contacto")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
               className="border border-jack-gold/40 text-jack-gold px-8 py-4 font-cinzel tracking-[0.2em] text-sm hover:bg-jack-gold/10 transition-all w-full sm:w-auto text-center"
             >
               SOLICITAR DEMO
-            </Link>
+            </button>
           </div>
         </FadeIn>
       </div>

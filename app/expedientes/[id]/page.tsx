@@ -2,10 +2,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
     ArrowLeft, Loader2, FileText, Upload, Download, Trash2, X,
     User, MapPin, Scale, Calendar, AlertCircle, CheckCircle2, Archive,
-    File, Image, FileSpreadsheet, FolderPlus, RefreshCw, MessageSquare, Send
+    File, Image, FileSpreadsheet, FolderPlus, RefreshCw, MessageSquare, Send,
+    Pencil, Plus, Save
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { getUserRole, canEdit, canDelete } from '@/lib/roles';
@@ -99,20 +101,36 @@ export default function ExpedienteDetailPage() {
     const [role] = useState(getUserRole());
     const [nuevaNota, setNuevaNota] = useState('');
     const [savingNota, setSavingNota] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [deleting, setDeleting] = useState(false);
+    const router = useRouter();
 
     // --- FETCH EXPEDIENTE ---
-    useEffect(() => {
-        async function fetch() {
-            const { data } = await supabase
-                .from('expedientes')
-                .select('*, clientes(nombre, tipo, telefono, email)')
-                .eq('id', id)
-                .single();
-            setExpediente(data as unknown as Expediente);
-            setLoading(false);
-        }
-        fetch();
+    const fetchExpediente = useCallback(async () => {
+        const { data } = await supabase
+            .from('expedientes')
+            .select('*, clientes(nombre, tipo, telefono, email)')
+            .eq('id', id)
+            .single();
+        setExpediente(data as unknown as Expediente);
+        setLoading(false);
     }, [id]);
+
+    useEffect(() => {
+        fetchExpediente();
+    }, [fetchExpediente]);
+
+    // --- ELIMINAR EXPEDIENTE ---
+    async function handleDeleteExpediente() {
+        if (!confirm('¿Está seguro? Se eliminarán todos los documentos y actividades asociadas a este expediente.')) return;
+        setDeleting(true);
+        await supabase.from('notificaciones').delete().eq('expediente_id', Number(id));
+        await supabase.from('actividades').delete().eq('expediente_id', Number(id));
+        await supabase.from('documentos').delete().eq('expediente_id', Number(id));
+        await supabase.from('eventos').delete().eq('expediente_id', Number(id));
+        await supabase.from('expedientes').delete().eq('id', Number(id));
+        router.push('/expedientes');
+    }
 
     // --- FETCH DOCUMENTOS ---
     const fetchDocumentos = useCallback(async () => {
@@ -279,9 +297,30 @@ export default function ExpedienteDetailPage() {
                             </p>
                         )}
                     </div>
-                    <div className="flex-shrink-0 text-right">
-                        <span className="text-[10px] text-jack-silver/40 uppercase tracking-widest">Materia</span>
-                        <p className="text-jack-gold font-bold text-lg font-cinzel">{expediente.materia}</p>
+                    <div className="flex-shrink-0 flex flex-col items-end gap-3">
+                        <div>
+                            <span className="text-[10px] text-jack-silver/40 uppercase tracking-widest">Materia</span>
+                            <p className="text-jack-gold font-bold text-lg font-cinzel">{expediente.materia}</p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            {canEdit(role) && (
+                                <button
+                                    onClick={() => setShowEditModal(true)}
+                                    className="px-3 py-1.5 bg-jack-gold/10 border border-jack-gold/30 text-jack-gold text-xs font-bold tracking-wider hover:bg-jack-gold/20 transition-colors flex items-center gap-1.5"
+                                >
+                                    <Pencil className="w-3 h-3" /> EDITAR
+                                </button>
+                            )}
+                            {canDelete(role) && (
+                                <button
+                                    onClick={handleDeleteExpediente}
+                                    disabled={deleting}
+                                    className="px-3 py-1.5 bg-jack-crimson/10 border border-jack-crimson/30 text-jack-crimson text-xs font-bold tracking-wider hover:bg-jack-crimson/20 transition-colors flex items-center gap-1.5 disabled:opacity-50"
+                                >
+                                    <Trash2 className="w-3 h-3" /> {deleting ? 'ELIMINANDO...' : 'ELIMINAR'}
+                                </button>
+                            )}
+                        </div>
                     </div>
                 </div>
 
@@ -414,6 +453,19 @@ export default function ExpedienteDetailPage() {
                 )}
             </div>
 
+            {/* MODAL DE EDICIÓN */}
+            {showEditModal && expediente && (
+                <EditExpedienteModal
+                    expediente={expediente}
+                    onClose={() => setShowEditModal(false)}
+                    onSaved={async () => {
+                        setShowEditModal(false);
+                        await fetchExpediente();
+                        await fetchActividades();
+                    }}
+                />
+            )}
+
             {/* HISTORIAL DE ACTIVIDAD */}
             <div className="space-y-4">
                 <h2 className="text-jack-white font-cinzel font-bold text-lg border-b border-jack-gold/10 pb-2">
@@ -506,4 +558,164 @@ export default function ExpedienteDetailPage() {
         await fetchActividades();
         setSavingNota(false);
     }
+}
+
+// --- CONSTANTES ---
+const MATERIAS = ['Laboral', 'Penal', 'Civil', 'Familia', 'Mercantil', 'Notarial', 'Administrativo'];
+const ESTADOS = ['En Trámite', 'Sentencia', 'Archivo'];
+
+// --- MODAL: EDITAR EXPEDIENTE ---
+function EditExpedienteModal({ expediente, onClose, onSaved }: {
+    expediente: Expediente;
+    onClose: () => void;
+    onSaved: () => void;
+}) {
+    const [saving, setSaving] = useState(false);
+    const [error, setError] = useState('');
+    const [clientes, setClientes] = useState<{ id: number; nombre: string }[]>([]);
+    const [form, setForm] = useState({
+        numero_caso: expediente.numero_caso,
+        cliente_id: String(expediente.cliente_id),
+        materia: expediente.materia,
+        estado: expediente.estado,
+        juzgado: expediente.juzgado || '',
+        descripcion: expediente.descripcion || '',
+    });
+
+    useEffect(() => {
+        supabase.from('clientes').select('id, nombre').order('nombre').then(({ data }) => {
+            setClientes((data as { id: number; nombre: string }[]) || []);
+        });
+    }, []);
+
+    function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    }
+
+    async function handleSubmit(e: React.FormEvent) {
+        e.preventDefault();
+        setError('');
+        if (!form.numero_caso.trim() || !form.cliente_id) {
+            setError('Número de caso y cliente son obligatorios.');
+            return;
+        }
+
+        setSaving(true);
+        const estadoChanged = form.estado !== expediente.estado;
+
+        const { error: dbError } = await supabase
+            .from('expedientes')
+            .update({
+                numero_caso: form.numero_caso.trim(),
+                cliente_id: Number(form.cliente_id),
+                materia: form.materia,
+                estado: form.estado,
+                juzgado: form.juzgado.trim() || null,
+                descripcion: form.descripcion.trim() || null,
+            })
+            .eq('id', expediente.id);
+
+        if (dbError) {
+            setError(dbError.message);
+            setSaving(false);
+            return;
+        }
+
+        // Log activity
+        const userName = localStorage.getItem('user_name') || 'Sistema';
+        if (estadoChanged) {
+            await supabase.from('actividades').insert({
+                expediente_id: expediente.id,
+                tipo: 'estado_actualizado',
+                descripcion: `Estado cambiado de "${expediente.estado}" a "${form.estado}"`,
+                usuario: userName,
+            });
+            await supabase.from('notificaciones').insert({
+                tipo: 'estado_actualizado',
+                mensaje: `Expediente ${form.numero_caso} actualizado a "${form.estado}" por ${userName}`,
+                expediente_id: expediente.id,
+            });
+        } else {
+            await supabase.from('actividades').insert({
+                expediente_id: expediente.id,
+                tipo: 'nota',
+                descripcion: `Expediente actualizado por ${userName}`,
+                usuario: userName,
+            });
+        }
+
+        onSaved();
+    }
+
+    const inputClass = "w-full bg-jack-panel border border-jack-gold/20 focus:border-jack-gold rounded px-4 py-3 text-jack-white focus:outline-none transition-colors text-sm";
+
+    return (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+            <form onSubmit={handleSubmit} className="bg-jack-base border border-jack-gold w-full max-w-lg flex flex-col shadow-2xl rounded-sm animate-in zoom-in-95 duration-200">
+                <div className="flex justify-between items-center p-5 border-b border-jack-gold/20 bg-jack-panel">
+                    <h2 className="text-xl font-cinzel text-jack-white font-bold tracking-wide flex items-center gap-2">
+                        <Pencil className="w-5 h-5 text-jack-gold" /> Editar Expediente
+                    </h2>
+                    <button type="button" onClick={onClose} className="text-jack-silver hover:text-white p-2 rounded-full transition-colors">
+                        <X className="w-5 h-5" />
+                    </button>
+                </div>
+
+                <div className="p-6 space-y-4 overflow-y-auto max-h-[65vh]">
+                    {error && (
+                        <div className="bg-red-900/20 border border-red-900/40 text-red-400 px-4 py-2 text-sm rounded">{error}</div>
+                    )}
+
+                    <div>
+                        <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Número de Caso *</label>
+                        <input name="numero_caso" value={form.numero_caso} onChange={handleChange} className={inputClass} />
+                    </div>
+
+                    <div>
+                        <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Cliente *</label>
+                        <select name="cliente_id" value={form.cliente_id} onChange={handleChange} className={inputClass}>
+                            {clientes.map((c) => (
+                                <option key={c.id} value={c.id}>{c.nombre}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Materia</label>
+                            <select name="materia" value={form.materia} onChange={handleChange} className={inputClass}>
+                                {MATERIAS.map((m) => <option key={m} value={m}>{m}</option>)}
+                            </select>
+                        </div>
+                        <div>
+                            <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Estado</label>
+                            <select name="estado" value={form.estado} onChange={handleChange} className={inputClass}>
+                                {ESTADOS.map((e) => <option key={e} value={e}>{e}</option>)}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Juzgado</label>
+                        <input name="juzgado" value={form.juzgado} onChange={handleChange} placeholder="Juzgado 1ro. de Trabajo" className={inputClass} />
+                    </div>
+
+                    <div>
+                        <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Descripción</label>
+                        <textarea name="descripcion" value={form.descripcion} onChange={handleChange} rows={3} placeholder="Descripción del caso..." className={`${inputClass} resize-none`} />
+                    </div>
+                </div>
+
+                <div className="p-4 border-t border-jack-gold/20 bg-jack-panel flex justify-end gap-3">
+                    <button type="button" onClick={onClose} className="px-5 py-2 text-jack-silver hover:text-white text-xs uppercase tracking-widest font-bold transition-colors">
+                        Cancelar
+                    </button>
+                    <button type="submit" disabled={saving} className="px-6 py-2 bg-jack-gold text-jack-base font-bold text-xs tracking-widest uppercase hover:bg-white transition-colors rounded disabled:opacity-50 flex items-center gap-2">
+                        {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                        {saving ? 'Guardando...' : 'Guardar Cambios'}
+                    </button>
+                </div>
+            </form>
+        </div>
+    );
 }

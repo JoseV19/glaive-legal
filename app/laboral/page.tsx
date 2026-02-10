@@ -1,112 +1,53 @@
 "use client";
-import { useState } from 'react';
-import { ArrowLeft, Gavel, FileText, CheckCircle2, Siren, Banknote, Clock, ShieldAlert, Skull, Users, HeartCrack, Copy } from 'lucide-react';
+import { useState, useEffect, useCallback } from 'react';
+import { ArrowLeft, Gavel, FileText, CheckCircle2, Siren, Banknote, Clock, ShieldAlert, Skull, Users, HeartCrack, Copy, Settings2, Plus, Pencil, Trash2, X, Loader2, Save } from 'lucide-react';
 import Link from 'next/link';
+import { supabase } from '@/lib/supabase';
+import { getUserRole, canEdit, canDelete, canCreate } from '@/lib/roles';
 
-// BASE DE DATOS MAESTRA (Detector + Citas Textuales)
-const knowledgeBase = [
-    // --- DINERO Y PRESTACIONES ---
-    {
-        id: 'ECO-01',
-        keywords: ['igss', 'seguro social', 'inscribir', 'carnet', 'doctor', 'hospital'],
-        law: 'Ley Orgánica del IGSS',
-        article: 'Art. 23 / Acuerdo 1123',
-        text: 'Infracción por omisión de inscripción.',
-        quote: 'Los patronos están obligados a inscribirse e inscribir a sus trabajadores, descontar la cuota correspondiente y enterarla a las Cajas del Instituto en el tiempo y forma que determinen los reglamentos.',
-        type: 'economic',
-        icon: <Banknote className="w-5 h-5 text-green-500" />
-    },
-    {
-        id: 'ECO-02',
-        keywords: ['aguinaldo', 'navidad', 'diciembre', 'bono navideño'],
-        law: 'Ley Reguladora del Aguinaldo',
-        article: 'Decreto 76-78',
-        text: 'Falta de pago de Aguinaldo (100% salario).',
-        quote: 'Todo patrono queda obligado a pagar a sus trabajadores, anualmente, en concepto de aguinaldo, el equivalente al cien por ciento del sueldo o salario ordinario mensual que éstos devenguen por un año de servicios continuos.',
-        type: 'economic',
-        icon: <Banknote className="w-5 h-5 text-green-500" />
-    },
-    {
-        id: 'ECO-03',
-        keywords: ['bono 14', 'catorce', 'julio', 'bonificación anual'],
-        law: 'Ley de Bonificación Anual',
-        article: 'Decreto 42-92',
-        text: 'Falta de pago de Bono 14.',
-        quote: 'Se establece con carácter de prestación laboral obligatoria para todo patrono, tanto del sector privado como del sector público, el pago a sus trabajadores de una bonificación anual equivalente a un salario o sueldo ordinario que devengue el trabajador.',
-        type: 'economic',
-        icon: <Banknote className="w-5 h-5 text-green-500" />
-    },
+interface Infraccion {
+    id: number;
+    codigo: string;
+    keywords: string[];
+    ley: string;
+    articulo: string;
+    texto: string;
+    cita: string;
+    tipo: string;
+}
 
-    // --- JORNADAS Y DESPIDOS ---
-    {
-        id: 'LAB-01',
-        keywords: ['horas extra', 'tiempo extra', 'tarde', 'noche', 'salía tarde', 'explotación'],
-        law: 'Código de Trabajo',
-        article: 'Art. 121',
-        text: 'Pago de Jornada Extraordinaria (+50%).',
-        quote: 'El trabajo efectivo que se ejecute fuera de los límites de tiempo que determinan la jornada ordinaria para el trabajo de que se trate, constituye jornada extraordinaria y debe ser remunerada por lo menos con un cincuenta por ciento más de los salarios mínimos.',
-        type: 'rights',
-        icon: <Clock className="w-5 h-5 text-orange-400" />
-    },
-    {
-        id: 'LAB-02',
-        keywords: ['despido', 'echaron', 'carta', 'sin causa', 'puerta', 'retirate'],
-        law: 'Código de Trabajo',
-        article: 'Art. 78',
-        text: 'Despido sin Causa Justa (Indemnización).',
-        quote: 'La terminación del contrato de trabajo conforme a una o varias de las causas enumeradas en el artículo anterior (77), surte efectos desde que el patrono lo comunique por escrito al trabajador indicándole la causa del despido y éste cese efectivamente sus labores.',
-        type: 'critical',
-        icon: <Gavel className="w-5 h-5 text-jack-crimson" />
-    },
-
-    // --- SITUACIONES SOSPECHOSAS (Full Spectrum) ---
-    {
-        id: 'SUS-01',
-        keywords: ['toca', 'insinúa', 'molesta', 'sexual', 'acoso', 'cuerpo', 'morbo', 'invita'],
-        law: 'Código de Trabajo',
-        article: 'Art. 62 inciso c',
-        text: 'Prohibición de acoso u hostigamiento.',
-        quote: 'Se prohíbe a los patronos: [...] c) Obligar o intentar obligar a los trabajadores, cualquiera que sea el medio que se adopte, a retirarse de los sindicatos o grupos legales a que pertenezcan, o a ingresar a unos o a otros.',
-        type: 'grave',
-        icon: <HeartCrack className="w-5 h-5 text-purple-500" />
-    },
-    {
-        id: 'SUS-02',
-        keywords: ['embarazada', 'bebé', 'gestación', 'lactancia', 'discriminan', 'mujer'],
-        law: 'Código de Trabajo',
-        article: 'Art. 151',
-        text: 'Protección a la Madre Trabajadora.',
-        quote: 'Se prohíbe a los patronos: a) Anunciar por cualquier medio, sus ofertas de empleo, especificando como requisito para llenar las plazas el sexo, raza, etnia o estado civil de la persona.',
-        type: 'grave',
-        icon: <Users className="w-5 h-5 text-pink-500" />
-    },
-    {
-        id: 'SUS-03',
-        keywords: ['peligro', 'sin casco', 'riesgo', 'accidente', 'seguridad', 'miedo', 'caer', 'quimicos'],
-        law: 'Reglamento SSO',
-        article: 'Acuerdo 229-2014, Art. 4',
-        text: 'Obligación de Equipo de Protección Personal.',
-        quote: 'Todo patrono o su representante, intermediario o contratista debe adoptar y poner en práctica en los lugares de trabajo, las medidas adecuadas de seguridad e higiene para proteger la vida, la salud y la integridad corporal de sus trabajadores.',
-        type: 'alert',
-        icon: <Skull className="w-5 h-5 text-yellow-500" />
-    },
-    {
-        id: 'SUS-04',
-        keywords: ['bajaron sueldo', 'cambiaron puesto', 'otra zona', 'menos dinero', 'degradaron', 'cambio'],
-        law: 'Código de Trabajo',
-        article: 'Art. 20',
-        text: 'Alteración de condiciones (Ius Variandi).',
-        quote: 'El contrato individual de trabajo obliga, no sólo a lo que se establece en él, sino: a) A la observancia de las obligaciones y derechos que este Código o los convenios internacionales ratificados por Guatemala determinen.',
-        type: 'alert',
-        icon: <ShieldAlert className="w-5 h-5 text-red-400" />
+function getIcon(tipo: string) {
+    switch (tipo) {
+        case 'economic': return <Banknote className="w-5 h-5 text-green-500" />;
+        case 'rights': return <Clock className="w-5 h-5 text-orange-400" />;
+        case 'critical': return <Gavel className="w-5 h-5 text-jack-crimson" />;
+        case 'grave': return <HeartCrack className="w-5 h-5 text-purple-500" />;
+        case 'alert': return <ShieldAlert className="w-5 h-5 text-yellow-500" />;
+        default: return <ShieldAlert className="w-5 h-5 text-jack-silver" />;
     }
-];
+}
 
 export default function LaboralPage() {
     const [inputText, setInputText] = useState('');
-    const [analysis, setAnalysis] = useState<any[]>([]);
+    const [analysis, setAnalysis] = useState<Infraccion[]>([]);
+    const [knowledgeBase, setKnowledgeBase] = useState<Infraccion[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [showManager, setShowManager] = useState(false);
+    const [role] = useState(() => getUserRole());
 
-    // 1. Función para Exportar PDF (Visual)
+    const fetchInfracciones = useCallback(async () => {
+        const { data } = await supabase
+            .from('laboral_infracciones')
+            .select('*')
+            .order('codigo');
+        setKnowledgeBase((data as Infraccion[]) || []);
+        setLoading(false);
+    }, []);
+
+    useEffect(() => {
+        fetchInfracciones();
+    }, [fetchInfracciones]);
+
     const printReport = () => {
         const style = document.createElement('style');
         style.innerHTML = `
@@ -124,12 +65,10 @@ export default function LaboralPage() {
         document.head.removeChild(style);
     };
 
-    // 2. Función para COPIAR FUNDAMENTO (Lógica Legal)
-    const copyLegalArgument = (item: any) => {
-        const legalText = `FUNDAMENTO DE DERECHO:\nDe conformidad con lo establecido en la ${item.law}, específicamente en su ${item.article}, que literalmente establece:\n"${item.quote}"\n\nPor lo anterior, solicito el cumplimiento de dicha norma.`;
-
+    const copyLegalArgument = (item: Infraccion) => {
+        const legalText = `FUNDAMENTO DE DERECHO:\nDe conformidad con lo establecido en la ${item.ley}, específicamente en su ${item.articulo}, que literalmente establece:\n"${item.cita}"\n\nPor lo anterior, solicito el cumplimiento de dicha norma.`;
         navigator.clipboard.writeText(legalText);
-        alert(`Fundamento del ${item.article} copiado al portapapeles.`);
+        alert(`Fundamento del ${item.articulo} copiado al portapapeles.`);
     };
 
     const analyzeCase = () => {
@@ -149,6 +88,14 @@ export default function LaboralPage() {
                     <span className="font-cinzel tracking-widest text-sm">VOLVER AL DASHBOARD</span>
                 </Link>
                 <div className="flex items-center gap-3">
+                    {canEdit(role) && (
+                        <button
+                            onClick={() => setShowManager(true)}
+                            className="flex items-center gap-2 text-xs text-jack-silver hover:text-jack-gold border border-jack-gold/20 px-3 py-2 rounded transition-colors"
+                        >
+                            <Settings2 className="w-4 h-4" /> GESTIONAR BASE LEGAL
+                        </button>
+                    )}
                     <div className="p-2 bg-jack-crimson/20 rounded border border-jack-crimson/50">
                         <Siren className="w-6 h-6 text-jack-crimson animate-pulse" />
                     </div>
@@ -165,7 +112,7 @@ export default function LaboralPage() {
                             <FileText className="w-4 h-4" /> NARRATIVA DEL CLIENTE
                         </h2>
                         <span className="text-[10px] tracking-widest text-jack-crimson border border-jack-crimson/30 px-2 py-1 rounded bg-jack-crimson/10 uppercase">
-                            Detección de Amenazas Activa
+                            {loading ? 'Cargando base...' : `${knowledgeBase.length} infracciones en base`}
                         </span>
                     </div>
 
@@ -182,9 +129,10 @@ export default function LaboralPage() {
 
                     <button
                         onClick={analyzeCase}
-                        className="w-full py-4 bg-jack-crimson text-jack-white font-cinzel font-bold tracking-[0.2em] border border-jack-gold/50 hover:bg-red-900 hover:shadow-[0_0_20px_rgba(122,31,46,0.5)] transition-all active:scale-[0.98]"
+                        disabled={loading}
+                        className="w-full py-4 bg-jack-crimson text-jack-white font-cinzel font-bold tracking-[0.2em] border border-jack-gold/50 hover:bg-red-900 hover:shadow-[0_0_20px_rgba(122,31,46,0.5)] transition-all active:scale-[0.98] disabled:opacity-50"
                     >
-                        EJECUTAR ANÁLISIS FORENSE
+                        {loading ? 'CARGANDO BASE LEGAL...' : 'EJECUTAR ANÁLISIS FORENSE'}
                     </button>
                 </section>
 
@@ -217,35 +165,34 @@ export default function LaboralPage() {
                             {/* Resumen de alertas */}
                             <div className="flex gap-2 mb-4">
                                 <span className="text-[10px] bg-red-900/30 text-red-400 px-2 py-1 rounded border border-red-500/20">
-                                    {analysis.filter(i => i.type === 'grave' || i.type === 'alert').length} Amenazas Graves
+                                    {analysis.filter(i => i.tipo === 'grave' || i.tipo === 'alert').length} Amenazas Graves
                                 </span>
                                 <span className="text-[10px] bg-green-900/30 text-green-400 px-2 py-1 rounded border border-green-500/20">
-                                    {analysis.filter(i => i.type === 'economic').length} Reclamos Económicos
+                                    {analysis.filter(i => i.tipo === 'economic').length} Reclamos Económicos
                                 </span>
                             </div>
 
-                            {analysis.map((item, idx) => (
-                                <div key={idx} className={`bg-jack-panel border-l-[4px] p-5 shadow-lg relative group transition-all hover:bg-jack-panel/80 ${item.type === 'grave' ? 'border-l-purple-500' :
-                                        item.type === 'alert' ? 'border-l-red-500' :
-                                            'border-l-jack-gold'
+                            {analysis.map((item) => (
+                                <div key={item.id} className={`bg-jack-panel border-l-[4px] p-5 shadow-lg relative group transition-all hover:bg-jack-panel/80 ${item.tipo === 'grave' ? 'border-l-purple-500' :
+                                    item.tipo === 'alert' ? 'border-l-red-500' :
+                                        'border-l-jack-gold'
                                     }`}>
                                     <div className="flex justify-between items-start mb-2">
                                         <div className="flex items-center gap-2">
-                                            {item.icon}
-                                            <h3 className="text-jack-white font-bold text-sm font-cinzel">{item.law}</h3>
+                                            {getIcon(item.tipo)}
+                                            <h3 className="text-jack-white font-bold text-sm font-cinzel">{item.ley}</h3>
                                         </div>
                                         <span className="text-[10px] font-mono text-jack-base bg-jack-gold/80 px-2 py-1 rounded font-bold">
-                                            {item.article}
+                                            {item.articulo}
                                         </span>
                                     </div>
 
                                     <p className="text-jack-silver text-sm mb-3 leading-relaxed border-t border-white/5 pt-2 mt-2">
-                                        {item.text}
+                                        {item.texto}
                                     </p>
 
-                                    {/* VISOR DE LA CITA LEGAL */}
                                     <div className="bg-black/20 p-3 border-l-2 border-jack-silver/30 text-xs text-jack-silver/60 italic mb-4 font-serif">
-                                        "{item.quote.substring(0, 80)}..."
+                                        &quot;{item.cita.substring(0, 80)}...&quot;
                                     </div>
 
                                     <div className="flex justify-end gap-3 mt-2 no-print">
@@ -263,6 +210,212 @@ export default function LaboralPage() {
                 </section>
 
             </main>
+
+            {/* MODAL GESTIÓN BASE LEGAL */}
+            {showManager && (
+                <InfraccionManager
+                    role={role}
+                    onClose={() => { setShowManager(false); fetchInfracciones(); }}
+                />
+            )}
+        </div>
+    );
+}
+
+// --- MODAL CRUD DE INFRACCIONES ---
+function InfraccionManager({ role, onClose }: { role: string; onClose: () => void }) {
+    const [infracciones, setInfracciones] = useState<Infraccion[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [editingItem, setEditingItem] = useState<Infraccion | null>(null);
+    const [showForm, setShowForm] = useState(false);
+
+    const fetchAll = useCallback(async () => {
+        const { data } = await supabase.from('laboral_infracciones').select('*').order('codigo');
+        setInfracciones((data as Infraccion[]) || []);
+        setLoading(false);
+    }, []);
+
+    useEffect(() => { fetchAll(); }, [fetchAll]);
+
+    const handleDelete = async (id: number) => {
+        if (!confirm('¿Eliminar esta infracción de la base legal?')) return;
+        await supabase.from('laboral_infracciones').delete().eq('id', id);
+        await fetchAll();
+    };
+
+    const handleEdit = (item: Infraccion) => {
+        setEditingItem(item);
+        setShowForm(true);
+    };
+
+    const handleNew = () => {
+        setEditingItem(null);
+        setShowForm(true);
+    };
+
+    return (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+            <div className="bg-jack-base border border-jack-gold w-full max-w-5xl h-[85vh] flex flex-col shadow-2xl rounded-sm">
+                {/* Header */}
+                <div className="flex justify-between items-center p-5 border-b border-jack-gold/20 bg-jack-panel flex-shrink-0">
+                    <h2 className="text-xl font-cinzel text-jack-white font-bold tracking-wide flex items-center gap-2">
+                        <Settings2 className="w-5 h-5 text-jack-gold" /> BASE LEGAL — {infracciones.length} INFRACCIONES
+                    </h2>
+                    <div className="flex items-center gap-3">
+                        {canCreate(role as any) && (
+                            <button
+                                onClick={handleNew}
+                                className="px-4 py-2 bg-jack-gold text-jack-base font-bold text-xs tracking-widest uppercase hover:bg-white transition-colors rounded flex items-center gap-2"
+                            >
+                                <Plus className="w-4 h-4" /> NUEVA
+                            </button>
+                        )}
+                        <button onClick={onClose} className="text-jack-silver hover:text-white p-2 transition-colors">
+                            <X className="w-5 h-5" />
+                        </button>
+                    </div>
+                </div>
+
+                {/* Body */}
+                <div className="flex-1 overflow-y-auto p-5 space-y-3">
+                    {loading ? (
+                        <div className="flex items-center justify-center py-20">
+                            <Loader2 className="w-8 h-8 animate-spin text-jack-gold/30" />
+                        </div>
+                    ) : infracciones.map((item) => (
+                        <div key={item.id} className="bg-jack-panel border border-jack-gold/10 p-4 flex items-start gap-4 hover:border-jack-gold/30 transition-colors">
+                            <div className="flex-shrink-0 mt-1">{getIcon(item.tipo)}</div>
+                            <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 mb-1">
+                                    <span className="text-[10px] font-mono bg-jack-gold/20 text-jack-gold px-1.5 py-0.5 rounded">{item.codigo}</span>
+                                    <span className="text-[10px] font-mono bg-white/5 text-jack-silver/50 px-1.5 py-0.5 rounded">{item.articulo}</span>
+                                </div>
+                                <p className="text-sm text-jack-white font-bold">{item.ley}</p>
+                                <p className="text-xs text-jack-silver/60 mt-1">{item.texto}</p>
+                                <p className="text-[10px] text-jack-silver/40 mt-1 truncate">Keywords: {item.keywords.join(', ')}</p>
+                            </div>
+                            <div className="flex items-center gap-2 flex-shrink-0">
+                                {canEdit(role as any) && (
+                                    <button onClick={() => handleEdit(item)} className="p-2 text-jack-silver/40 hover:text-jack-gold transition-colors">
+                                        <Pencil className="w-4 h-4" />
+                                    </button>
+                                )}
+                                {canDelete(role as any) && (
+                                    <button onClick={() => handleDelete(item.id)} className="p-2 text-jack-silver/40 hover:text-jack-crimson transition-colors">
+                                        <Trash2 className="w-4 h-4" />
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Sub-modal: Form */}
+            {showForm && (
+                <InfraccionForm
+                    item={editingItem}
+                    onClose={() => { setShowForm(false); fetchAll(); }}
+                />
+            )}
+        </div>
+    );
+}
+
+// --- FORMULARIO DE INFRACCIÓN ---
+const TIPOS = ['economic', 'rights', 'critical', 'grave', 'alert'];
+
+function InfraccionForm({ item, onClose }: { item: Infraccion | null; onClose: () => void }) {
+    const [form, setForm] = useState({
+        codigo: item?.codigo || '',
+        keywords: item?.keywords.join(', ') || '',
+        ley: item?.ley || '',
+        articulo: item?.articulo || '',
+        texto: item?.texto || '',
+        cita: item?.cita || '',
+        tipo: item?.tipo || 'economic',
+    });
+    const [saving, setSaving] = useState(false);
+
+    const handleSave = async () => {
+        if (!form.codigo.trim() || !form.ley.trim() || !form.articulo.trim()) {
+            alert('Código, Ley y Artículo son obligatorios.');
+            return;
+        }
+        setSaving(true);
+        const keywordsArray = form.keywords.split(',').map(k => k.trim().toLowerCase()).filter(Boolean);
+        const payload = {
+            codigo: form.codigo.trim(),
+            keywords: keywordsArray,
+            ley: form.ley.trim(),
+            articulo: form.articulo.trim(),
+            texto: form.texto.trim(),
+            cita: form.cita.trim(),
+            tipo: form.tipo,
+        };
+
+        if (item) {
+            await supabase.from('laboral_infracciones').update(payload).eq('id', item.id);
+        } else {
+            await supabase.from('laboral_infracciones').insert(payload);
+        }
+        setSaving(false);
+        onClose();
+    };
+
+    const set = (key: string, val: string) => setForm(prev => ({ ...prev, [key]: val }));
+
+    return (
+        <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/70 p-4">
+            <div className="bg-jack-base border border-jack-gold w-full max-w-2xl shadow-2xl rounded-sm">
+                <div className="p-5 border-b border-jack-gold/20 bg-jack-panel flex justify-between items-center">
+                    <h3 className="text-lg font-cinzel text-jack-white font-bold">
+                        {item ? 'Editar Infracción' : 'Nueva Infracción'}
+                    </h3>
+                    <button onClick={onClose} className="text-jack-silver hover:text-white"><X className="w-5 h-5" /></button>
+                </div>
+                <div className="p-5 space-y-4 max-h-[60vh] overflow-y-auto">
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Código</label>
+                            <input value={form.codigo} onChange={e => set('codigo', e.target.value)} placeholder="ECO-01" className="w-full bg-jack-panel border border-jack-gold/20 focus:border-jack-gold rounded px-4 py-2.5 text-jack-white focus:outline-none text-sm" />
+                        </div>
+                        <div>
+                            <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Tipo</label>
+                            <select value={form.tipo} onChange={e => set('tipo', e.target.value)} className="w-full bg-jack-panel border border-jack-gold/20 focus:border-jack-gold rounded px-4 py-2.5 text-jack-white focus:outline-none text-sm">
+                                {TIPOS.map(t => <option key={t} value={t}>{t}</option>)}
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Ley</label>
+                        <input value={form.ley} onChange={e => set('ley', e.target.value)} placeholder="Código de Trabajo" className="w-full bg-jack-panel border border-jack-gold/20 focus:border-jack-gold rounded px-4 py-2.5 text-jack-white focus:outline-none text-sm" />
+                    </div>
+                    <div>
+                        <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Artículo</label>
+                        <input value={form.articulo} onChange={e => set('articulo', e.target.value)} placeholder="Art. 121" className="w-full bg-jack-panel border border-jack-gold/20 focus:border-jack-gold rounded px-4 py-2.5 text-jack-white focus:outline-none text-sm" />
+                    </div>
+                    <div>
+                        <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Descripción Breve</label>
+                        <input value={form.texto} onChange={e => set('texto', e.target.value)} placeholder="Pago de Jornada Extraordinaria (+50%)" className="w-full bg-jack-panel border border-jack-gold/20 focus:border-jack-gold rounded px-4 py-2.5 text-jack-white focus:outline-none text-sm" />
+                    </div>
+                    <div>
+                        <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Keywords (separadas por coma)</label>
+                        <input value={form.keywords} onChange={e => set('keywords', e.target.value)} placeholder="horas extra, tiempo extra, tarde, noche" className="w-full bg-jack-panel border border-jack-gold/20 focus:border-jack-gold rounded px-4 py-2.5 text-jack-white focus:outline-none text-sm" />
+                    </div>
+                    <div>
+                        <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Cita Legal Completa</label>
+                        <textarea value={form.cita} onChange={e => set('cita', e.target.value)} rows={4} placeholder="El trabajo efectivo que se ejecute fuera de los límites..." className="w-full bg-jack-panel border border-jack-gold/20 focus:border-jack-gold rounded px-4 py-2.5 text-jack-white focus:outline-none text-sm resize-none" />
+                    </div>
+                </div>
+                <div className="p-5 border-t border-jack-gold/20 flex justify-end gap-3">
+                    <button onClick={onClose} className="px-4 py-2 text-jack-silver hover:text-white text-sm transition-colors">Cancelar</button>
+                    <button onClick={handleSave} disabled={saving} className="px-6 py-2 bg-jack-gold text-jack-base font-bold text-xs tracking-widest uppercase hover:bg-white transition-colors rounded flex items-center gap-2 disabled:opacity-50">
+                        {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                        {item ? 'ACTUALIZAR' : 'CREAR'}
+                    </button>
+                </div>
+            </div>
         </div>
     );
 }

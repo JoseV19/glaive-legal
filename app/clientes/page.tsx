@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { Search, UserPlus, Building2, User, Phone, Mail, ChevronRight, Loader2, X, Plus, Briefcase } from 'lucide-react';
+import { Search, UserPlus, Building2, User, Phone, Mail, ChevronRight, Loader2, X, Plus, Briefcase, Pencil, Trash2, Save } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import { getUserRole, canCreate } from '@/lib/roles';
+import { getUserRole, canCreate, canEdit, canDelete } from '@/lib/roles';
 
 // --- INTERFACES ---
 interface Cliente {
@@ -32,9 +32,20 @@ export default function ClientesPage() {
     const [filter, setFilter] = useState('');
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
+    const [editingClient, setEditingClient] = useState<Cliente | null>(null);
     const [role, setRole] = useState(getUserRole());
 
     useEffect(() => { setRole(getUserRole()); }, []);
+
+    async function handleDeleteCliente(client: Cliente) {
+        if (!confirm(`¿Eliminar a "${client.nombre}"? Si tiene expedientes vinculados, no podrá eliminarse.`)) return;
+        const { error } = await supabase.from('clientes').delete().eq('id', client.id);
+        if (error) {
+            alert('No se pudo eliminar. El cliente tiene expedientes vinculados.');
+            return;
+        }
+        fetchClientes();
+    }
 
     // --- FETCH CLIENTES con conteo de expedientes ---
     async function fetchClientes() {
@@ -174,7 +185,26 @@ export default function ClientesPage() {
                                             <Briefcase className="w-3 h-3" />
                                             {casosCount} {casosCount === 1 ? 'Caso' : 'Casos'}
                                         </span>
-                                        <ChevronRight className="w-4 h-4 text-jack-silver/30 group-hover:translate-x-1 group-hover:text-jack-gold transition-all" />
+                                        <div className="flex items-center gap-1">
+                                            {canEdit(role) && (
+                                                <button
+                                                    onClick={(e) => { e.stopPropagation(); setEditingClient(client); }}
+                                                    className="p-1.5 text-jack-silver/30 hover:text-jack-gold hover:bg-jack-gold/10 rounded transition-colors"
+                                                    title="Editar"
+                                                >
+                                                    <Pencil className="w-3.5 h-3.5" />
+                                                </button>
+                                            )}
+                                            {canDelete(role) && (
+                                                <button
+                                                    onClick={(e) => { e.stopPropagation(); handleDeleteCliente(client); }}
+                                                    className="p-1.5 text-jack-silver/30 hover:text-jack-crimson hover:bg-jack-crimson/10 rounded transition-colors"
+                                                    title="Eliminar"
+                                                >
+                                                    <Trash2 className="w-3.5 h-3.5" />
+                                                </button>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             );
@@ -189,6 +219,18 @@ export default function ClientesPage() {
                     onClose={() => setShowModal(false)}
                     onCreated={() => {
                         setShowModal(false);
+                        fetchClientes();
+                    }}
+                />
+            )}
+
+            {/* MODAL EDITAR CLIENTE */}
+            {editingClient && (
+                <EditClienteModal
+                    client={editingClient}
+                    onClose={() => setEditingClient(null)}
+                    onSaved={() => {
+                        setEditingClient(null);
                         fetchClientes();
                     }}
                 />
@@ -367,6 +409,127 @@ function NuevoClienteModal({ onClose, onCreated }: {
                     >
                         {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <UserPlus className="w-4 h-4" />}
                         {saving ? 'Guardando...' : 'Crear Cliente'}
+                    </button>
+                </div>
+            </form>
+        </div>
+    );
+}
+
+// --- MODAL: EDITAR CLIENTE ---
+function EditClienteModal({ client, onClose, onSaved }: {
+    client: Cliente;
+    onClose: () => void;
+    onSaved: () => void;
+}) {
+    const [saving, setSaving] = useState(false);
+    const [error, setError] = useState('');
+    const [form, setForm] = useState({
+        nombre: client.nombre,
+        tipo: client.tipo,
+        contacto: client.contacto || '',
+        telefono: client.telefono || '',
+        email: client.email || '',
+        estado: client.estado,
+    });
+
+    function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    }
+
+    async function handleSubmit(e: React.FormEvent) {
+        e.preventDefault();
+        setError('');
+        if (!form.nombre.trim()) {
+            setError('El nombre del cliente es obligatorio.');
+            return;
+        }
+
+        setSaving(true);
+        const { error: dbError } = await supabase
+            .from('clientes')
+            .update({
+                nombre: form.nombre.trim(),
+                tipo: form.tipo,
+                contacto: form.contacto.trim() || null,
+                telefono: form.telefono.trim() || null,
+                email: form.email.trim() || null,
+                estado: form.estado,
+            })
+            .eq('id', client.id);
+
+        if (dbError) {
+            setError(dbError.message);
+            setSaving(false);
+            return;
+        }
+
+        onSaved();
+    }
+
+    const inputClass = "w-full bg-jack-panel border border-jack-gold/20 focus:border-jack-gold rounded px-4 py-3 text-jack-white focus:outline-none transition-colors text-sm";
+
+    return (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+            <form onSubmit={handleSubmit} className="bg-jack-base border border-jack-gold w-full max-w-lg flex flex-col shadow-2xl rounded-sm animate-in zoom-in-95 duration-200">
+                <div className="flex justify-between items-center p-5 border-b border-jack-gold/20 bg-jack-panel">
+                    <h2 className="text-xl font-cinzel text-jack-white font-bold tracking-wide flex items-center gap-2">
+                        <Pencil className="w-5 h-5 text-jack-gold" /> Editar Cliente
+                    </h2>
+                    <button type="button" onClick={onClose} className="text-jack-silver hover:text-white p-2 rounded-full transition-colors">
+                        <X className="w-5 h-5" />
+                    </button>
+                </div>
+
+                <div className="p-6 space-y-4 overflow-y-auto max-h-[65vh]">
+                    {error && (
+                        <div className="bg-red-900/20 border border-red-900/40 text-red-400 px-4 py-2 text-sm rounded">{error}</div>
+                    )}
+
+                    <div>
+                        <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Nombre *</label>
+                        <input name="nombre" value={form.nombre} onChange={handleChange} className={inputClass} />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Tipo</label>
+                            <select name="tipo" value={form.tipo} onChange={handleChange} className={inputClass}>
+                                {TIPOS.map((t) => <option key={t} value={t}>{t}</option>)}
+                            </select>
+                        </div>
+                        <div>
+                            <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Estado</label>
+                            <select name="estado" value={form.estado} onChange={handleChange} className={inputClass}>
+                                {ESTADOS_CLIENTE.map((e) => <option key={e} value={e}>{e}</option>)}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Persona de Contacto</label>
+                        <input name="contacto" value={form.contacto} onChange={handleChange} placeholder="Representante legal" className={inputClass} />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Teléfono</label>
+                            <input name="telefono" value={form.telefono} onChange={handleChange} placeholder="+502 0000-0000" className={inputClass} />
+                        </div>
+                        <div>
+                            <label className="block text-xs text-jack-gold uppercase tracking-widest font-bold mb-1">Email</label>
+                            <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="correo@ejemplo.com" className={inputClass} />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="p-4 border-t border-jack-gold/20 bg-jack-panel flex justify-end gap-3">
+                    <button type="button" onClick={onClose} className="px-5 py-2 text-jack-silver hover:text-white text-xs uppercase tracking-widest font-bold transition-colors">
+                        Cancelar
+                    </button>
+                    <button type="submit" disabled={saving} className="px-6 py-2 bg-jack-gold text-jack-base font-bold text-xs tracking-widest uppercase hover:bg-white transition-colors rounded disabled:opacity-50 flex items-center gap-2">
+                        {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                        {saving ? 'Guardando...' : 'Guardar Cambios'}
                     </button>
                 </div>
             </form>

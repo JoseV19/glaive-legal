@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { UserRole, ROLES, getUserRole, canAccessRoute } from '@/lib/roles';
+import { CookieConsent } from '@/components/CookieConsent';
 
 interface Notificacion {
   id: number;
@@ -42,7 +43,7 @@ function timeAgo(dateStr: string) {
 
 export default function ClientShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isCleanLayout = pathname === '/login' || pathname === '/landing';
+  const isCleanLayout = pathname === '/login' || pathname === '/landing' || pathname === '/terminos' || pathname === '/privacidad' || pathname === '/aviso-legal';
 
   const [role, setRole] = useState<UserRole>('titular');
   const [userName, setUserName] = useState('U');
@@ -145,6 +146,7 @@ export default function ClientShell({ children }: { children: React.ReactNode })
     return (
       <main className="w-full h-full">
         {children}
+        <CookieConsent />
       </main>
     );
   }

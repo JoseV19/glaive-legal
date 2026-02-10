@@ -64,12 +64,12 @@ export function Hero() {
             <button
               onClick={() =>
                 document
-                  .getElementById("demo")
+                  .getElementById("contacto")
                   ?.scrollIntoView({ behavior: "smooth" })
               }
               className="border border-jack-gold/40 text-jack-gold px-8 py-4 font-cinzel tracking-[0.2em] text-sm hover:bg-jack-gold/10 transition-all w-full sm:w-auto"
             >
-              VER DEMO
+              SOLICITAR DEMO
             </button>
           </div>
         </FadeIn>

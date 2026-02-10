@@ -7,8 +7,9 @@ import { motion, AnimatePresence } from "framer-motion";
 const navLinks = [
   { label: "Funciones", href: "#features" },
   { label: "Demo", href: "#demo" },
+  { label: "Comparativa", href: "#comparativa" },
   { label: "Metricas", href: "#metrics" },
-  { label: "Testimonios", href: "#testimonials" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 export function Navbar() {
@@ -79,12 +80,12 @@ export function Navbar() {
             >
               Iniciar Sesion
             </Link>
-            <Link
-              href="/login"
+            <button
+              onClick={() => scrollTo("#contacto")}
               className="btn-shimmer bg-jack-crimson text-jack-white px-5 py-2.5 text-sm font-cinzel tracking-widest border border-jack-gold/20 hover:shadow-[0_0_25px_rgba(122,31,46,0.5)] transition-all"
             >
               SOLICITAR DEMO
-            </Link>
+            </button>
           </div>
 
           {/* Mobile Hamburger */}
@@ -124,12 +125,12 @@ export function Navbar() {
                 >
                   Iniciar Sesion
                 </Link>
-                <Link
-                  href="/login"
-                  className="btn-shimmer bg-jack-crimson text-jack-white px-6 py-3 text-center font-cinzel tracking-widest border border-jack-gold/20"
+                <button
+                  onClick={() => scrollTo("#contacto")}
+                  className="btn-shimmer bg-jack-crimson text-jack-white px-6 py-3 text-center font-cinzel tracking-widest border border-jack-gold/20 w-full"
                 >
                   SOLICITAR DEMO
-                </Link>
+                </button>
               </div>
             </div>
           </motion.div>
